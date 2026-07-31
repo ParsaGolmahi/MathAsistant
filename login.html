@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به ایما | دستیار ریاضی</title>
+    <link rel="icon" href="IMA-Purple.png" type="image/png">
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* =========================================
+        استایل ها
+           ========================================= */
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-dark: #111827;
+            --text-gray: #6b7280;
+            --border-light: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-light);
+        }
+        
+        /* -- هدر و لوگو -- */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .header img.brand-logo {
+            width: 90px; /* سایز بزرگتر و مناسب‌تر */
+            height: auto;
+            display: block;
+            margin: 0 auto 16px auto; /* وسط‌چین کردن دقیق و تنظیم فاصله پایین */
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 1.6rem; /* کمی بزرگتر برای هماهنگی با لوگو */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        
+        /* -- تب‌ها -- */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-light);
+            margin-bottom: 24px;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        /* -- فرم‌ها -- */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background-color: #fafafa;
+            transition: border-color 0.2s, background-color 0.2s;
+            direction: rtl;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+        
+        select.form-control { cursor: pointer; }
+        
+        /* -- دکمه‌ها -- */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
+        
+        .guest-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .guest-btn:hover { color: var(--text-dark); }
+        
+        /* -- خطاها و وضعیت بارگذاری -- */
+        .alert {
+            display: none;
+            padding: 10px;
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 16px;
+            border: 1px solid #fecaca;
+        }
+        
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        
+        <div class="header">
+            <img src="IMA-Purple.png" alt="لوگوی ایما" class="brand-logo">
+            <h1>ایما</h1>
+            <p>دستیار هوشمند ریاضیات</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" id="tab-login" onclick="app.switchTab('login')">ورود</div>
+            <div class="tab" id="tab-register" onclick="app.switchTab('register')">ثبت‌نام</div>
+        </div>
+        
+        <div id="form-login">
+            <div class="form-group">
+                <label>نام کاربری</label>
+                <input type="text" id="log-user" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <input type="password" id="log-pass" class="form-control">
+            </div>
+            <button class="btn" id="btn-login" onclick="app.login()">
+                <span id="text-login">ورود</span>
+                <div class="spinner" id="spin-login"></div>
+            </button>
+        </div>
+        
+        <div id="form-register" style="display: none;">
+            <div class="form-group">
+                <label>نام و نام خانوادگی</label>
+                <input type="text" id="reg-name" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>نوع حساب</label>
+                <select id="reg-role" class="form-control">
+                    <option value="student">دانش‌آموز</option>
+                    <option value="teacher">معلم</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>ایمیل</label>
+                <input type="email" id="reg-email" class="form-control" dir="ltr" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>نام کاربری (انگلیسی)</label>
+                <input type="text" id="reg-user" class="form-control" dir="ltr" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <input type="password" id="reg-pass" class="form-control" placeholder="حداقل ۶ حرف">
+            </div>
+            <button class="btn" id="btn-register" onclick="app.register()">
+                <span id="text-register">ثبت‌نام</span>
+                <div class="spinner" id="spin-register"></div>
+            </button>
+        </div>
+        
+        <div class="alert" id="error-box"></div>
+        
+        <a class="guest-btn" onclick="app.loginAsGuest()">
+            ورود به عنوان مهمان <i class="fas fa-chevron-left" style="font-size: 0.8em;"></i>
+        </a>
+
+    </div>
+
+<script>
+    // شیء مرکزی برای مدیریت منطق صفحه با کدهای تمیز و قابل خواندن
+    const app = {
+        apiURL: "http://127.0.0.1:8000/api/auth",
+
+        // تغییر بین فرم لاگین و ثبت‌نام
+        switchTab(target) {
+            document.getElementById("tab-login").classList.toggle("active", target === "login");
+            document.getElementById("tab-register").classList.toggle("active", target === "register");
+            
+            document.getElementById("form-login").style.display = target === "login" ? "block" : "none";
+            document.getElementById("form-register").style.display = target === "register" ? "block" : "none";
+            
+            this.hideError();
+        },
+
+        // مدیریت نمایش خطاها
+        showError(msg) {
+            const box = document.getElementById("error-box");
+            box.textContent = msg;
+            box.style.display = "block";
+            setTimeout(() => this.hideError(), 4000);
+        },
+
+        hideError() {
+            document.getElementById("error-box").style.display = "none";
+        },
+
+        // مدیریت دکمه در حال لود
+        setLoading(action, isLoad) {
+            document.getElementById(`btn-${action}`).disabled = isLoad;
+            document.getElementById(`text-${action}`).style.display = isLoad ? "none" : "inline";
+            document.getElementById(`spin-${action}`).style.display = isLoad ? "inline-block" : "none";
+        },
+
+        // پاکسازی توکن‌های قدیمی برای جلوگیری از تداخل حساب‌ها
+        cleanStorage() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("ima_token");
+            localStorage.removeItem("ima_user");
+        },
+
+        // ذخیره اطلاعات کاربر جدید و انتقال به پنل
+        saveAndRedirect(data) {
+            localStorage.setItem("ima_token", data.access_token);
+            localStorage.setItem("ima_user", JSON.stringify(data.user));
+            
+            const role = data.user.role;
+            window.location.href = (role === "teacher" || role === "admin") ? "teacher.html" : "ima.html";
+        },
+
+        // متد لاگین
+        async login() {
+            const user = document.getElementById("log-user").value.trim();
+            const pass = document.getElementById("log-pass").value.trim();
+            
+            if (!user || !pass) return this.showError("لطفاً مشخصات را کامل کنید.");
+            
+            this.setLoading("login", true);
+            
+            try {
+                const res = await fetch(`${this.apiURL}/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    this.cleanStorage();
+                    this.saveAndRedirect(data);
+                } else {
+                    this.showError(data.detail || "اطلاعات ورود اشتباه است.");
+                }
+            } catch (err) {
+                this.showError("ارتباط با سرور قطع شده است.");
+            } finally {
+                this.setLoading("login", false);
+            }
+        },
+
+        // متد ثبت‌نام
+        async register() {
+            const name = document.getElementById("reg-name").value.trim();
+            const role = document.getElementById("reg-role").value;
+            const email = document.getElementById("reg-email").value.trim();
+            const user = document.getElementById("reg-user").value.trim();
+            const pass = document.getElementById("reg-pass").value.trim();
+            
+            if (!name || !email || !user || !pass) return this.showError("پر کردن همه فیلدها الزامی است.");
+            if (pass.length < 6) return this.showError("رمز عبور باید حداقل ۶ حرف باشد.");
+            
+            this.setLoading("register", true);
+            
+            try {
+                const res = await fetch(`${this.apiURL}/register`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: user,
+                        email: email,
+                        full_name: name,
+                        password: pass,
+                        role: role 
+                    })
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    this.cleanStorage();
+                    this.saveAndRedirect(data);
+                } else {
+                    this.showError(data.detail || "مشکلی در ثبت‌نام وجود دارد.");
+                }
+            } catch (err) {
+                this.showError("ارتباط با سرور قطع شده است.");
+            } finally {
+                this.setLoading("register", false);
+            }
+        },
+
+        // متد مهمان
+        loginAsGuest() {
+            this.cleanStorage();
+            localStorage.setItem("ima_user", JSON.stringify({
+                username: "guest",
+                full_name: "مهمان",
+                role: "guest"
+            }));
+            window.location.href = "ima.html";
+        }
+    };
+
+    // پشتیبانی از کلید Enter در کیبورد
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            const isLogin = document.getElementById("form-login").style.display !== "none";
+            isLogin ? app.login() : app.register();
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ایما — دستیار هوشمند ریاضی</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="icon" href="IMA-Purple.png" type="image/png">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], processEscapes: true },
+  startup: { typeset: false }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* متغیرهای رنگ و سایز */
+:root {
+  --sidebar-w: 260px;
+  --ink: #0d0d0d;
+  --ink-2: #3d3d3d;
+  --ink-3: #8e8ea0;
+  --surface: #ffffff;
+  --surface-2: #f9f9f9;
+  --surface-3: #ececec;
+  --accent: #10a37f;
+  --accent-light: rgba(16, 163, 127, 0.1);
+  --border: #e5e5e5;
+  --border-strong: #d1d5db;
+  --user-bubble: #f4f4f4;
+  --user-bubble-text: #0d0d0d;
+  --danger: #ef4444;
+  --success: #10a37f;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --anim: cubic-bezier(0.4, 0, 0.2, 1);
+  --font: 'Vazirmatn', sans-serif;
+  --content-w: 800px;
+}
+
+/* رنگ‌های حالت تاریک */
+[data-theme="dark"] {
+  --ink: #ececec;
+  --ink-2: #c5c5d2;
+  --ink-3: #8e8ea0;
+  --surface: #212121;
+  --surface-2: #171717;
+  --surface-3: #2f2f2f;
+  --accent: #10a37f;
+  --border: #424242;
+  --border-strong: #565869;
+  --user-bubble: #2f2f2f;
+  --user-bubble-text: #ececec;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { display: flex; overflow: hidden; }
+
+/* استایل سایدبار */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s var(--anim);
+  z-index: 100;
+  position: relative;
+  border-left: 1px solid var(--border);
+}
+
+.sidebar-top { padding: 16px; }
+
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; text-decoration: none; color: inherit; padding: 0 4px; }
+.brand-logo img { width: 32px; height: 32px; object-fit: contain; background: transparent; }
+.brand-name { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+
+.new-chat-btn { width: 100%; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--ink); font-family: var(--font); font-size: 0.9rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
+.new-chat-btn:hover { background: var(--surface-3); }
+
+/* لیست چت‌ها */
+.thread-list { flex: 1; overflow-y: auto; padding: 0 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+.thread-item { padding: 12px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 10px; transition: background 0.2s; color: var(--ink-2); position: relative; }
+.thread-item:hover { background: var(--surface-3); color: var(--ink); }
+.thread-item.active { background: var(--surface-3); color: var(--ink); font-weight: 500; }
+.thread-label { flex: 1; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.thread-delete { opacity: 0; background: transparent; border: none; color: var(--ink-3); cursor: pointer; padding: 4px; transition: color 0.2s; }
+.thread-item:hover .thread-delete { opacity: 1; }
+.thread-delete:hover { color: var(--danger); }
+
+.sidebar-footer { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+.sidebar-action { padding: 12px; border-radius: var(--radius-sm); border: none; background: transparent; color: var(--ink-2); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: var(--font); transition: background 0.2s; text-align: right; }
+.sidebar-action:hover { background: var(--surface-3); color: var(--ink); }
+
+/* لایه تاریک پشت سایدبار در موبایل */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+  opacity: 0;
+  transition: opacity 0.3s var(--anim);
+}
+.sidebar-overlay.show { opacity: 1; }
+
+/* بخش اصلی صفحه چت */
+.workspace { flex: 1; display: flex; flex-direction: column; min-width: 0; position: relative; }
+
+.topbar { 
+  height: 60px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  padding: 0 20px; 
+  position: absolute; 
+  top: 0; right: 0; left: 0; 
+  z-index: 50; 
+  background: linear-gradient(180deg, var(--surface) 40%, transparent);
+}
+
+.model-selector {
+  display: flex;
+  background: var(--surface-3);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  gap: 4px;
+}
+
+.model-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.model-btn:hover { color: var(--ink); }
+.model-btn.active { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); font-weight: 600; }
+.model-btn i { font-size: 0.9rem; }
+
+.icon-btn { width: 40px; height: 40px; border-radius: var(--radius-sm); border: none; background: transparent; color: var(--ink-2); font-size: 1.2rem; cursor: pointer; display: none; align-items: center; justify-content: center; }
+
+/* ناحیه اسکرول پیام‌ها */
+.feed { flex: 1; overflow-y: auto; scroll-behavior: smooth; padding: 70px 0 140px; display: flex; flex-direction: column; }
+.feed::-webkit-scrollbar { width: 6px; }
+.feed::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+
+/* حالت خالی (قبل از شروع چت) */
+.empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; animation: fadeIn 0.4s var(--anim) forwards; }
+.empty-logo img { width: 64px; height: 64px; object-fit: contain; margin-bottom: 24px; background: transparent; }
+.empty-title { font-size: 1.6rem; font-weight: 600; margin-bottom: 40px; }
+.suggestions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; max-width: 600px; }
+.suggestion-card { padding: 16px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--border); cursor: pointer; text-align: right; transition: background 0.2s; }
+.suggestion-card:hover { background: var(--surface-2); }
+.suggestion-icon { font-size: 1.2rem; color: var(--ink-3); margin-bottom: 8px; display: block; }
+
+/* حباب‌های پیام */
+.msg-row { width: 100%; padding: 24px 20px; display: flex; justify-content: center; animation: fadeIn 0.3s var(--anim) forwards; }
+.msg-content { width: 100%; max-width: var(--content-w); display: flex; gap: 16px; }
+.msg-row.user { justify-content: center; }
+.msg-row.user .msg-content { flex-direction: row-reverse; }
+
+.avatar { width: 30px; height: 30px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.avatar.ai img { width: 30px; height: 30px; object-fit: contain; background: transparent; }
+.avatar.user { background: var(--surface-3); color: var(--ink-2); border-radius: 50%; }
+
+.bubble { max-width: 100%; flex: 1; overflow-x: hidden; word-wrap: break-word; }
+.bubble-user { background: var(--user-bubble); color: var(--user-bubble-text); padding: 12px 18px; border-radius: var(--radius-xl); font-size: 1rem; display: inline-block; max-width: 85%; }
+.bubble-ai { font-size: 1rem; color: var(--ink); line-height: 1.8; padding-top: 4px; }
+.bubble-ai p { margin-bottom: 16px; }
+.bubble-ai pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; overflow-x: auto; margin: 16px 0; font-size: 0.9rem; direction: ltr; }
+
+/* باکس تایپ پیام */
+.bottom-dock { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, transparent, var(--surface) 20%); padding: 20px 20px 30px; display: flex; flex-direction: column; align-items: center; }
+
+.img-preview-wrap { display: none; width: 100%; max-width: var(--content-w); margin-bottom: 10px; }
+.img-preview-inner { display: inline-flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px 12px; }
+.img-preview-inner img { height: 40px; border-radius: 4px; object-fit: cover; }
+.img-preview-del { background: transparent; border: none; color: var(--danger); cursor: pointer; }
+
+.input-shell { width: 100%; max-width: var(--content-w); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-xl); padding: 12px 16px; display: flex; align-items: flex-end; gap: 12px; box-shadow: var(--shadow-md); transition: border-color 0.2s, box-shadow 0.2s; }
+.input-shell:focus-within { border-color: var(--ink-3); box-shadow: var(--shadow-lg); }
+.input-shell textarea { flex: 1; background: transparent; border: none; outline: none; color: var(--ink); font-size: 1rem; font-family: var(--font); line-height: 1.5; resize: none; min-height: 24px; max-height: 200px; padding: 2px 0; }
+.input-btn { background: transparent; border: none; color: var(--ink-3); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; padding: 4px; }
+.input-btn:hover { color: var(--ink); }
+.send-btn { background: var(--ink); color: var(--surface); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.2s; }
+.send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* انیمیشن نقطه زدن (در حال تایپ) */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.typing-dot { width: 6px; height: 6px; background: var(--ink-3); border-radius: 50%; display: inline-block; animation: typingPulse 1.4s infinite; margin: 0 2px; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingPulse { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-4px); opacity: 1; } }
+
+/* دکمه آواتار */
+.avatar-entry-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.avatar-entry-btn:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+.avatar-entry-btn i { font-size: 1rem; color: var(--accent); }
+
+/* صفحه آواتار هوشمند */
+.avatar-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--surface);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.avatar-page.active { display: flex; }
+
+.avatar-topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.avatar-topbar-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.avatar-topbar-title i { color: var(--accent); }
+
+.avatar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.avatar-back-btn:hover { background: var(--surface-3); color: var(--ink); }
+
+.avatar-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px 20px 100px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.avatar-frame {
+  position: relative;
+  width: 260px;
+  height: 320px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0; left: 0;
+  transition: opacity 0.05s ease;
+  border-radius: var(--radius-lg);
+  filter: drop-shadow(0 8px 24px rgba(16,163,127,0.18));
+}
+
+.avatar-frame::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: calc(var(--radius-lg) + 6px);
+  background: transparent;
+  border: 2px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  pointer-events: none;
+  z-index: 2;
+}
+.avatar-frame.speaking::before {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(16,163,127,0.35), 0 0 40px rgba(16,163,127,0.15);
+}
+
+.avatar-status {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  height: 20px;
+  transition: color 0.3s;
+}
+.avatar-status.active { color: var(--accent); }
+
+/* خطوط صدا موقع حرف زدن آواتار */
+.lipsync-bar-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 36px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.lipsync-bar-container.visible { opacity: 1; }
+.lipsync-bar {
+  width: 5px;
+  background: var(--accent);
+  border-radius: 3px;
+  min-height: 4px;
+  transition: height 0.08s ease;
+}
+
+/* بخش دکمه ضبط صدا */
+.avatar-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.mic-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface-3);
+  color: var(--ink-2);
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  outline: none;
+}
+.mic-btn:hover { background: var(--surface-3); transform: scale(1.05); }
+.mic-btn.recording {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 0 0 8px rgba(239,68,68,0.18), var(--shadow-md);
+  animation: pulseRing 1.5s infinite;
+}
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4), var(--shadow-md); }
+  70% { box-shadow: 0 0 0 16px rgba(239,68,68,0), var(--shadow-md); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0), var(--shadow-md); }
+}
+
+.mic-hint {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.avatar-transcript {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  line-height: 1.6;
+  min-height: 52px;
+  text-align: center;
+  display: none;
+}
+.avatar-transcript.visible { display: block; }
+
+/* مدیا کوئری برای گوشی‌ها */
+@media (max-width: 768px) {
+  .sidebar { position: fixed; right: 0; top: 0; bottom: 0; transform: translateX(100%); width: 280px; box-shadow: -2px 0 12px rgba(0,0,0,0.15); }
+  .sidebar.open { transform: translateX(0); }
+  .icon-btn { display: flex; }
+  .topbar { padding: 0 12px; }
+  .model-selector { margin-right: 8px; gap: 2px; }
+  .model-btn { padding: 6px 10px; font-size: 0.8rem; }
+  .avatar-entry-btn { padding: 6px 10px; font-size: 0.8rem; }
+  .msg-row { padding: 16px 12px; }
+  .bottom-dock { padding: 12px 12px 20px; }
+  .input-shell { padding: 8px 12px; border-radius: 16px; }
+  .empty-title { font-size: 1.3rem; }
+  .suggestions-grid { grid-template-columns: 1fr; }
+  .avatar-frame { width: 180px; height: 220px; }
+  .avatar-stage { padding: 10px 10px 80px; gap: 20px; }
+  .mic-btn { width: 60px; height: 60px; font-size: 1.3rem; }
+}
+</style>
+</head>
+<body data-theme="light">
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebarMobile()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <div class="brand-logo"><img src="IMA-Purple.png" alt="IMA Logo"></div>
+      <div class="brand-name">ایما</div>
+    </div>
+    <button class="new-chat-btn" onclick="startNewChat()">
+      <i class="fas fa-plus"></i> گفتگوی جدید
+    </button>
+  </div>
+  <div class="thread-list" id="threadList"></div>
+  <div class="sidebar-footer">
+    <button class="sidebar-action" onclick="toggleTheme()" id="themeBtn">
+      <i class="fas fa-moon"></i> حالت تاریک
+    </button>
+  </div>
+</div>
+
+<div class="workspace">
+  <div class="topbar">
+    <button class="icon-btn" onclick="toggleSidebarMobile()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="model-selector">
+      <button class="model-btn" data-ui="lite" onclick="selectModel('lite')"><i class="fas fa-bolt"></i> Lite</button>
+      <button class="model-btn active" data-ui="flash" onclick="selectModel('flash')"><i class="fas fa-meteor"></i> Flash</button>
+      <button class="model-btn" data-ui="pro" onclick="selectModel('pro')"><i class="fas fa-brain"></i> Pro</button>
+    </div>
+
+    <button class="avatar-entry-btn" onclick="openAvatarPage()">
+      <i class="fas fa-user-circle"></i>
+      ورود به آواتار
+    </button>
+  </div>
+
+  <div class="feed" id="feed"></div>
+
+  <div class="bottom-dock">
+    <div class="img-preview-wrap" id="imgPreviewWrap">
+      <div class="img-preview-inner">
+        <img id="imgPreviewThumb" src="" alt="">
+        <span id="imgPreviewName" style="font-size: 0.8rem; color: var(--ink-2)"></span>
+        <button class="img-preview-del" onclick="clearImage()"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+
+    <div class="input-shell">
+      <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="onImageSelect(this)">
+      <button class="input-btn" onclick="document.getElementById('imgInput').click()" title="پیوست تصویر">
+        <i class="far fa-image"></i>
+      </button>
+      <textarea id="queryInput" rows="1" placeholder="مسئله ریاضی خود را بنویسید..." oninput="autoResize(this)" onkeydown="onKeyDown(event)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+        <i class="fas fa-arrow-up"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="avatar-page" id="avatarPage">
+  <div class="avatar-topbar">
+    <div class="avatar-topbar-title">
+      <i class="fas fa-user-circle"></i> آواتار هوشمند
+    </div>
+    <button class="avatar-back-btn" onclick="closeAvatarPage()">
+      <i class="fas fa-arrow-right"></i> بازگشت
+    </button>
+  </div>
+
+  <div class="avatar-stage" id="avatarStage">
+    <div class="avatar-frame" id="avatarFrame">
+      <img class="avatar-img" id="avatarEyesOpen"   src="AVATAR1.png" alt="آواتار - چشم باز"  style="opacity:1">
+      <img class="avatar-img" id="avatarEyesClosed" src="AVATAR2.png" alt="آواتار - چشم بسته" style="opacity:0">
+      <img class="avatar-img" id="avatarMouthOpen"  src="AVATAR3.png" alt="آواتار - دهان باز"  style="opacity:0">
+    </div>
+
+    <div class="avatar-status" id="avatarStatus">آماده صحبت</div>
+
+    <div class="lipsync-bar-container" id="lipsyncBars">
+      <div class="lipsync-bar" id="lb1"></div>
+      <div class="lipsync-bar" id="lb2"></div>
+      <div class="lipsync-bar" id="lb3"></div>
+      <div class="lipsync-bar" id="lb4"></div>
+      <div class="lipsync-bar" id="lb5"></div>
+      <div class="lipsync-bar" id="lb6"></div>
+      <div class="lipsync-bar" id="lb7"></div>
+    </div>
+
+    <div class="avatar-transcript" id="avatarTranscript"></div>
+
+    <div class="avatar-controls">
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()">
+        <i class="fas fa-microphone" id="micIcon"></i>
+      </button>
+      <div class="mic-hint" id="micHint">برای صحبت کلیک کنید</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// متغیرهای گلوبال و آدرس سرور
+const API = "http://127.0.0.1:8000/api";
+let activeId = null;
+let selectedFile = null;
+
+// نگاشت مدل‌های ظاهری به اسم اصلی در سرور
+const modelMapping = {
+  'lite': 'gpt-4o-mini',
+  'flash': 'gapgpt-qwen-3.6',
+  'pro': 'gpt-5.2-chat-latest'
+};
+let currentModelKey = 'flash';
+
+// توابع کمکی برای گرفتن توکن و هدرها
+const getToken = () => localStorage.getItem("ima_token");
+const authHeaders = () => ({
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${getToken()}`
+});
+
+// تغییر تم بین تاریک و روشن
+function toggleTheme() {
+  const isDark = document.body.dataset.theme === "dark";
+  document.body.dataset.theme = isDark ? "light" : "dark";
+  document.getElementById("themeBtn").innerHTML = isDark ? '<i class="fas fa-moon"></i> حالت تاریک' : '<i class="fas fa-sun"></i> حالت روشن';
+}
+
+// باز و بسته کردن سایدبار در حالت موبایل
+function toggleSidebarMobile() {
+  document.getElementById("sidebar").classList.toggle("open");
+  const overlay = document.getElementById("sidebarOverlay");
+  if(overlay.classList.contains("show")) {
+      overlay.classList.remove("show");
+      setTimeout(() => overlay.style.display = 'none', 300);
+  } else {
+      overlay.style.display = 'block';
+      setTimeout(() => overlay.classList.add("show"), 10);
+  }
+}
+
+// تنظیم سایز باکس متن موقع تایپ کردن
+function autoResize(el) {
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 200) + "px";
+  document.getElementById("sendBtn").disabled = el.value.trim() === "" && !selectedFile;
+}
+
+function onKeyDown(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+// تغییر مدل فعال از بالای صفحه
+function selectModel(modelKey) {
+  currentModelKey = modelKey;
+  document.querySelectorAll('.model-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.model-btn[data-ui="${modelKey}"]`).classList.add('active');
+}
+
+// وقتی کاربر عکسی را انتخاب می‌کند
+function onImageSelect(input) {
+  if (!input.files || !input.files[0]) return;
+  selectedFile = input.files[0];
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById("imgPreviewThumb").src = e.target.result;
+    document.getElementById("imgPreviewName").textContent = selectedFile.name;
+    document.getElementById("imgPreviewWrap").style.display = "flex";
+    document.getElementById("sendBtn").disabled = false;
+  };
+  reader.readAsDataURL(selectedFile);
+}
+
+// پاک کردن عکس پیوست شده
+function clearImage() {
+  selectedFile = null;
+  document.getElementById("imgInput").value = "";
+  document.getElementById("imgPreviewWrap").style.display = "none";
+  document.getElementById("sendBtn").disabled = document.getElementById("queryInput").value.trim() === "";
+}
+
+// لود کردن لیست مکالمات قبلی کاربر از سرور
+async function loadThreads() {
+  if (!getToken()) return renderEmptyState();
+  try {
+    const r = await fetch(`${API}/ai/conversations`, { headers: authHeaders() });
+    if(r.ok) {
+        const threads = await r.json();
+        renderThreads(threads);
+        if (threads.length > 0 && !activeId) openThread(threads[0].id);
+        else if (threads.length === 0) renderEmptyState();
+    }
+  } catch (err) { console.error("Error loading threads:", err); renderEmptyState(); }
+}
+
+// رندر کردن تاریخچه چت‌ها در سایدبار
+function renderThreads(threads) {
+  const list = document.getElementById("threadList");
+  list.innerHTML = "";
+  threads.forEach(t => {
+    const el = document.createElement("div");
+    el.className = `thread-item${t.id === activeId ? " active" : ""}`;
+    el.innerHTML = `
+      <span class="thread-label">${t.title}</span>
+      <button class="thread-delete" onclick="deleteThread(${t.id}, event)"><i class="fas fa-trash-can"></i></button>
+    `;
+    el.onclick = () => {
+      openThread(t.id);
+      if(window.innerWidth <= 768) toggleSidebarMobile();
+    };
+    list.appendChild(el);
+  });
+}
+
+// باز کردن یک چت خاص و گرفتن پیام‌های آن
+async function openThread(id) {
+  activeId = id;
+  const feed = document.getElementById("feed");
+  feed.innerHTML = "";
+  showTypingIndicator();
+  
+  try {
+    const r = await fetch(`${API}/ai/conversations/${id}/messages`, { headers: authHeaders() });
+    const msgs = await r.json();
+    removeTypingIndicator();
+    
+    if (msgs.length === 0) renderEmptyState();
+    else {
+      msgs.forEach(m => appendMessage(m.content, m.role, false));
+      if (window.MathJax) MathJax.typesetPromise([feed]);
+    }
+    loadThreads(); 
+  } catch { removeTypingIndicator(); renderEmptyState(); }
+}
+
+// حذف مکالمه
+async function deleteThread(id, e) {
+  e.stopPropagation();
+  try {
+    await fetch(`${API}/ai/conversations/${id}`, { method: "DELETE", headers: authHeaders() });
+    if (activeId === id) { activeId = null; renderEmptyState(); }
+    loadThreads();
+  } catch (err) { console.error(err); }
+}
+
+// شروع چت جدید
+function startNewChat() {
+  activeId = null;
+  document.getElementById("feed").innerHTML = "";
+  document.querySelectorAll(".thread-item").forEach(el => el.classList.remove("active"));
+  renderEmptyState();
+  document.getElementById("queryInput").focus();
+  if(window.innerWidth <= 768) toggleSidebarMobile();
+}
+
+// صفحه پیشنهادات شروع چت (مخصوص ریاضی هشتم)
+function renderEmptyState() {
+  document.getElementById("feed").innerHTML = `
+    <div class="empty-state">
+      <div class="empty-logo"><img src="IMA-Purple.png" alt="IMA Logo"></div>
+      <h1 class="empty-title">چگونه می‌توانم در ریاضی کمکت کنم؟</h1>
+      <div class="suggestions-grid">
+        <div class="suggestion-card" onclick="useSuggestion('رابطه فیثاغورس در مثلث قائم‌الزاویه را توضیح بده')">
+          <span class="suggestion-icon"><i class="fas fa-shapes"></i></span>
+          <div class="suggestion-text">هندسه و فیثاغورس</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('حاصل عبارت 2x + 3x - 5 + x را ساده کن')">
+          <span class="suggestion-icon"><i class="fas fa-square-root-variable"></i></span>
+          <div class="suggestion-text">جبر و معادله</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('چگونه جذر تقریبی یک عدد را حساب کنیم؟')">
+          <span class="suggestion-icon"><i class="fas fa-calculator"></i></span>
+          <div class="suggestion-text">اعداد توان‌دار و جذر</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('بردارها را چگونه با هم جمع کنیم؟')">
+          <span class="suggestion-icon"><i class="fas fa-arrow-trend-up"></i></span>
+          <div class="suggestion-text">بردار و مختصات</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// جای‌گذاری متن پیشنهاد شده در باکس ورودی
+function useSuggestion(text) {
+  const ta = document.getElementById("queryInput");
+  ta.value = text;
+  autoResize(ta);
+  sendMessage();
+}
+
+// اضافه کردن پیام به صفحه
+function appendMessage(text, role, renderMath = true) {
+  const feed = document.getElementById("feed");
+  const es = feed.querySelector(".empty-state");
+  if (es) es.remove();
+
+  const row = document.createElement("div");
+  row.className = `msg-row ${role}`;
+
+  let contentText = text.replace(/\n/g,"<br>");
+
+  if (role === "user") {
+    row.innerHTML = `<div class="msg-content"><div class="bubble bubble-user">${contentText}</div></div>`;
+  } else {
+    row.innerHTML = `
+      <div class="msg-content">
+        <div class="avatar ai"><img src="IMA-Purple.png" alt="IMA"></div>
+        <div class="bubble bubble-ai">${contentText}</div>
+      </div>
+    `;
+  }
+
+  feed.appendChild(row);
+  feed.scrollTo({ top: feed.scrollHeight, behavior: "smooth" });
+
+  if (renderMath && window.MathJax && role === "assistant") {
+    MathJax.typesetPromise([row]).catch(() => {});
+  }
+}
+
+// نمایش انیمیشن در حال تایپ
+function showTypingIndicator() {
+  const feed = document.getElementById("feed");
+  const row = document.createElement("div");
+  row.className = "msg-row assistant typing-indicator-row";
+  row.innerHTML = `
+    <div class="msg-content">
+      <div class="avatar ai"><img src="IMA-Purple.png" alt="IMA"></div>
+      <div class="bubble bubble-ai" style="padding-top:12px;">
+        <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+      </div>
+    </div>
+  `;
+  feed.appendChild(row);
+  feed.scrollTo({ top: feed.scrollHeight, behavior: "smooth" });
+}
+
+// برداشتن انیمیشن تایپ وقتی جواب رسید
+function removeTypingIndicator() {
+  const ind = document.querySelector(".typing-indicator-row");
+  if (ind) ind.remove();
+}
+
+// تابع اصلی ارسال پیام به سرور هوش مصنوعی
+async function sendMessage() {
+  const ta = document.getElementById("queryInput");
+  const text = ta.value.trim();
+  const sendBtn = document.getElementById("sendBtn");
+  const actualModel = modelMapping[currentModelKey]; 
+
+  if (!text && !selectedFile) return;
+
+  // اگر چت جدید است اول یک شناسه چت بساز
+  if (!activeId) {
+    const title = text ? (text.length > 30 ? text.substring(0, 30) + "…" : text) : "تحلیل تصویر ریاضی";
+    try {
+      const r = await fetch(`${API}/ai/conversations`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify({ title: title, model: actualModel })
+      });
+      const s = await r.json();
+      activeId = s.id;
+    } catch { alert("خطا در ایجاد گفتگو"); return; }
+  }
+
+  let displayText = text;
+  if (selectedFile) displayText = `[📷 تصویر ضمیمه شد]\n${text}`;
+  appendMessage(displayText, "user");
+
+  ta.value = "";
+  ta.style.height = "auto";
+  sendBtn.disabled = true;
+  showTypingIndicator();
+
+  try {
+    let response;
+    
+    // اگر عکس داشت از اندپوینت vision استفاده کن
+    if (selectedFile) {
+      const fd = new FormData();
+      fd.append("conversation_id", activeId);
+      fd.append("question", text);
+      fd.append("file", selectedFile);
+      fd.append("model", actualModel);
+      
+      response = await fetch(`${API}/ai/vision`, {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${getToken()}` },
+        body: fd
+      });
+      clearImage();
+    } else {
+      // حالت عادی چت متنی
+      response = await fetch(`${API}/ai/chat`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify({ conversation_id: activeId, content: text, model: actualModel })
+      });
+    }
+
+    if (!response.ok) throw new Error("Server error");
+    const data = await response.json();
+    
+    removeTypingIndicator();
+    appendMessage(data.content, "assistant");
+    loadThreads(); 
+
+  } catch (err) {
+    removeTypingIndicator();
+    appendMessage("متأسفم، خطایی در ارتباط با سرور رخ داد.", "assistant");
+    console.error(err);
+  } finally {
+    ta.focus();
+  }
+}
+
+// ============================================
+// بخش کدهای مربوط به آواتار
+// ============================================
+
+let avatarIsRecording = false;
+let avatarIsSpeaking  = false;
+let avatarSpeakInterval  = null;
+let avatarBlinkTimer     = null;
+let lipsyncAnimInterval  = null;
+let currentAudioEl       = null;
+let mediaRecorder        = null;
+let audioChunks          = [];
+let avatarConvId         = null;
+
+function openAvatarPage() {
+  document.getElementById("avatarPage").classList.add("active");
+  resetAvatarState();
+}
+
+function closeAvatarPage() {
+  document.getElementById("avatarPage").classList.remove("active");
+  stopMic();
+  stopAvatarSpeaking();
+  stopBlinkLoop();
+}
+
+function resetAvatarState() {
+  stopAvatarSpeaking();
+  stopBlinkLoop();
+  setAvatarFrame("open");
+  setAvatarStatus("آماده صحبت", false);
+  hideLipsync();
+  hideTranscript();
+  scheduleBlink();
+}
+
+function setAvatarFrame(state) {
+  document.getElementById("avatarEyesOpen").style.opacity   = (state === "open")     ? "1" : "0";
+  document.getElementById("avatarEyesClosed").style.opacity = (state === "closed")   ? "1" : "0";
+  document.getElementById("avatarMouthOpen").style.opacity  = (state === "speaking") ? "1" : "0";
+}
+
+// تایمر برای پلک زدن طبیعی آواتار
+function scheduleBlink() {
+  stopBlinkLoop();
+  if (avatarIsSpeaking || avatarIsRecording) return;
+  const delay = 2800 + Math.random() * 2400;
+  avatarBlinkTimer = setTimeout(() => {
+    if (!avatarIsSpeaking && !avatarIsRecording) {
+      setAvatarFrame("closed");
+      setTimeout(() => {
+        if (!avatarIsSpeaking) setAvatarFrame("open");
+        scheduleBlink();
+      }, 140);
+    } else {
+      scheduleBlink();
+    }
+  }, delay);
+}
+
+function stopBlinkLoop() {
+  if (avatarBlinkTimer) { clearTimeout(avatarBlinkTimer); avatarBlinkTimer = null; }
+}
+
+// نمایش خطوط موج صدا موقع صحبت کردن آواتار
+const lbIds = ["lb1","lb2","lb3","lb4","lb5","lb6","lb7"];
+function showLipsync() {
+  document.getElementById("lipsyncBars").classList.add("visible");
+  lipsyncAnimInterval = setInterval(() => {
+    lbIds.forEach(id => {
+      document.getElementById(id).style.height = (5 + Math.random() * 28) + "px";
+    });
+  }, 75);
+}
+
+function hideLipsync() {
+  document.getElementById("lipsyncBars").classList.remove("visible");
+  if (lipsyncAnimInterval) { clearInterval(lipsyncAnimInterval); lipsyncAnimInterval = null; }
+  lbIds.forEach(id => document.getElementById(id).style.height = "4px");
+}
+
+function showTranscript(text) {
+  const el = document.getElementById("avatarTranscript");
+  el.textContent = text;
+  el.classList.add("visible");
+}
+
+function hideTranscript() {
+  const el = document.getElementById("avatarTranscript");
+  el.textContent = "";
+  el.classList.remove("visible");
+}
+
+function setAvatarStatus(text, active = false) {
+  const el = document.getElementById("avatarStatus");
+  el.textContent = text;
+  el.className = "avatar-status" + (active ? " active" : "");
+}
+
+// انیمیشن حرف زدن (باز و بسته شدن دهان آواتار)
+let mouthToggle = false;
+function startAvatarSpeaking() {
+  avatarIsSpeaking = true;
+  stopBlinkLoop();
+  document.getElementById("avatarFrame").classList.add("speaking");
+  showLipsync();
+  mouthToggle = false;
+  avatarSpeakInterval = setInterval(() => {
+    mouthToggle = !mouthToggle;
+    setAvatarFrame(mouthToggle ? "speaking" : "open");
+  }, 155);
+}
+
+function stopAvatarSpeaking() {
+  avatarIsSpeaking = false;
+  if (avatarSpeakInterval) { clearInterval(avatarSpeakInterval); avatarSpeakInterval = null; }
+  if (currentAudioEl) { currentAudioEl.pause(); currentAudioEl = null; }
+  document.getElementById("avatarFrame").classList.remove("speaking");
+  setAvatarFrame("open");
+  hideLipsync();
+  scheduleBlink();
+}
+
+// ارسال متن به سرور تبدیل متن به صدا (TTS)
+async function speakText(text) {
+  if (!text || !text.trim()) return;
+  stopAvatarSpeaking();
+
+  setAvatarStatus("در حال بارگذاری صدا...", true);
+
+  try {
+    const fd = new FormData();
+    fd.append("text", text.substring(0, 1000));
+    fd.append("voice", "alloy");
+    fd.append("speed", "1.0");
+
+    const resp = await fetch(`${API}/tts`, {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${getToken()}` },
+      body: fd
+    });
+
+    if (!resp.ok) throw new Error("TTS server error " + resp.status);
+
+    const blob = await resp.blob();
+    const url  = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    currentAudioEl = audio;
+
+    audio.onplay = () => {
+      startAvatarSpeaking();
+      setAvatarStatus("در حال صحبت...", true);
+    };
+    audio.onended = () => {
+      URL.revokeObjectURL(url);
+      currentAudioEl = null;
+      stopAvatarSpeaking();
+      setAvatarStatus("آماده صحبت", false);
+    };
+    audio.onerror = () => {
+      URL.revokeObjectURL(url);
+      currentAudioEl = null;
+      stopAvatarSpeaking();
+      setAvatarStatus("خطا در پخش صدا", false);
+    };
+
+    await audio.play();
+
+  } catch (err) {
+    console.error("TTS Error:", err);
+    stopAvatarSpeaking();
+    setAvatarStatus("خطا در سرویس صدا", false);
+  }
+}
+
+// درخواست به هوش مصنوعی برای بخش آواتار
+async function askAvatarAI(userText) {
+  setAvatarStatus("در حال فکر کردن...", true);
+  showTranscript("شما: " + userText);
+
+  const actualModel = modelMapping[currentModelKey];
+
+  try {
+    if (!avatarConvId) {
+      const r = await fetch(`${API}/ai/conversations`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify({ title: "آواتار - " + userText.substring(0, 30), model: actualModel })
+      });
+      const s = await r.json();
+      avatarConvId = s.id;
+    }
+
+    const response = await fetch(`${API}/ai/chat`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: JSON.stringify({ conversation_id: avatarConvId, content: userText, model: actualModel })
+    });
+
+    if (!response.ok) throw new Error("Chat error " + response.status);
+    const data = await response.json();
+    const answerText = data.content || "متأسفم، پاسخی دریافت نشد.";
+
+    showTranscript("ایما: " + answerText);
+    await speakText(answerText);
+
+  } catch (err) {
+    console.error("Avatar AI error:", err);
+    const msg = "متأسفم، خطایی در ارتباط با سرور رخ داد.";
+    showTranscript("ایما: " + msg);
+    await speakText(msg);
+  }
+}
+
+// شروع و پایان ضبط صدای کاربر
+function toggleMic() {
+  if (avatarIsRecording) stopMic();
+  else startMic();
+}
+
+async function startMic() {
+  if (avatarIsSpeaking) stopAvatarSpeaking(); 
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioChunks = [];
+
+    const mimeType = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/ogg";
+    mediaRecorder = new MediaRecorder(stream, { mimeType });
+
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+
+    mediaRecorder.onstop = async () => {
+      stream.getTracks().forEach(t => t.stop());
+      if (audioChunks.length === 0) return;
+
+      const audioBlob = new Blob(audioChunks, { type: mimeType });
+      audioChunks = [];
+
+      setAvatarStatus("در حال پردازش صدا...", true);
+      setMicUi(false);
+
+      // ارسال صدای ضبط شده به سرور برای تشخیص گفتار (STT)
+      try {
+        const fd = new FormData();
+        fd.append("file", audioBlob, "voice.webm");
+
+        const resp = await fetch(`${API}/stt`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${getToken()}` },
+          body: fd
+        });
+
+        if (!resp.ok) throw new Error("STT error " + resp.status);
+        const result = await resp.json();
+        const recognized = result.text ? result.text.trim() : "";
+
+        if (recognized) {
+          showTranscript("شما: " + recognized);
+          await askAvatarAI(recognized);
+        } else {
+          setAvatarStatus("صدایی شنیده نشد", false);
+          setTimeout(() => setAvatarStatus("آماده صحبت", false), 2000);
+        }
+      } catch (err) {
+        console.error("STT Error:", err);
+        setAvatarStatus("خطا در تشخیص صدا", false);
+        scheduleBlink();
+      }
+    };
+
+    mediaRecorder.start();
+    avatarIsRecording = true;
+    stopBlinkLoop();
+    setMicUi(true);
+    setAvatarStatus("در حال گوش دادن...", true);
+    showTranscript("...");
+
+  } catch (err) {
+    console.error("Mic Error:", err);
+    alert("دسترسی به میکروفون امکان‌پذیر نیست.");
+    avatarIsRecording = false;
+  }
+}
+
+function stopMic() {
+  avatarIsRecording = false;
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.stop();
+  }
+  setMicUi(false);
+  if (!avatarIsSpeaking) scheduleBlink();
+}
+
+function setMicUi(recording) {
+  const btn  = document.getElementById("micBtn");
+  const icon = document.getElementById("micIcon");
+  const hint = document.getElementById("micHint");
+  if (recording) {
+    btn.classList.add("recording");
+    icon.className = "fas fa-stop";
+    hint.textContent = "برای توقف کلیک کنید";
+  } else {
+    btn.classList.remove("recording");
+    icon.className = "fas fa-microphone";
+    hint.textContent = "برای صحبت کلیک کنید";
+  }
+}
+
+window.onload = () => { loadThreads(); };
+</script>
+</body>
+</html>

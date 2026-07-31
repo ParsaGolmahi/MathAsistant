@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>میدان تیراندازی اعداد اول (۱ تا ۱۰۰۰)</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Tahoma, Arial, sans-serif;
+            background-color: #111;
+        }
+        #ui-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ffcc;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #00ffcc;
+            pointer-events: none;
+            z-index: 10;
+        }
+        #instruction {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        #feedback {
+            font-size: 18px;
+            color: #ff3366;
+            min-height: 25px;
+            transition: color 0.2s;
+        }
+        #score-board {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffd700;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            border: 2px solid #ffd700;
+            pointer-events: none;
+            z-index: 10;
+            text-align: center;
+            transition: transform 0.1s, color 0.1s;
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            border: 2px solid #00ffcc;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 5;
+            background: rgba(0, 255, 204, 0.2);
+            transition: transform 0.1s;
+        }
+        #blocker {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        #start-btn {
+            font-size: 30px;
+            padding: 15px 40px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px #e94560;
+            transition: transform 0.2s;
+        }
+        #start-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <!-- Import Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="blocker">
+        <button id="start-btn">شروع بازی (۱ تا ۱۰۰۰)</button>
+        <p style="font-size: 20px;">با موس به اطراف نگاه کنید و با <b>Enter</b> شلیک کنید.</p>
+        <p style="font-size: 16px; color: #aaa;">شلیک درست = +۱۰ امتیاز | شلیک غلط = -۵ امتیاز</p>
+    </div>
+
+    <div id="ui-container">
+        <div id="instruction">در حال بارگذاری...</div>
+        <div id="feedback"></div>
+    </div>
+    
+    <div id="score-board">
+        <div id="batch-display">دسته: ۱ از ۱۰</div>
+        <div id="score-display">امتیاز: ۰</div>
+    </div>
+    
+    <div id="crosshair"></div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+        // --- سیستم صوتی (Web Audio API) ---
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function playSound(type) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            const now = audioCtx.currentTime;
+
+            if (type === 'shoot') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(50, now + 0.1);
+                gainNode.gain.setValueAtTime(0.05, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } else if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.setValueAtTime(800, now + 0.1);
+                gainNode.gain.setValueAtTime(0.1, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(100, now + 0.3);
+                gainNode.gain.setValueAtTime(0.1, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'levelUp') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.setValueAtTime(500, now + 0.1);
+                osc.frequency.setValueAtTime(600, now + 0.2);
+                osc.frequency.setValueAtTime(800, now + 0.3);
+                gainNode.gain.setValueAtTime(0.1, now);
+                gainNode.gain.linearRampToValueAtTime(0, now + 0.6);
+                osc.start(now);
+                osc.stop(now + 0.6);
+            }
+        }
+
+        // --- امتیاز و رابط کاربری ---
+        let score = 0;
+        const scoreBoard = document.getElementById('score-board');
+        const scoreDisplay = document.getElementById('score-display');
+        const batchDisplay = document.getElementById('batch-display');
+        const instructionEl = document.getElementById('instruction');
+        const feedbackEl = document.getElementById('feedback');
+        const crosshair = document.getElementById('crosshair');
+
+        function updateScore(amount) {
+            score += amount;
+            scoreDisplay.innerText = `امتیاز: ${score}`;
+            scoreBoard.style.transform = 'scale(1.1)';
+            if (amount > 0) scoreBoard.style.borderColor = '#00ffcc';
+            else scoreBoard.style.borderColor = '#ff3366';
+            
+            setTimeout(() => {
+                scoreBoard.style.transform = 'scale(1)';
+                scoreBoard.style.borderColor = '#ffd700';
+            }, 300);
+        }
+
+        // --- تنظیمات پایه Three.js ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+        scene.fog = new THREE.Fog(0x1a1a2e, 10, 40);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 1.6, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new PointerLockControls(camera, document.body);
+        const blocker = document.getElementById('blocker');
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            initAudio();
+            controls.lock();
+        });
+
+        controls.addEventListener('lock', () => blocker.style.display = 'none');
+        controls.addEventListener('unlock', () => blocker.style.display = 'flex');
+        scene.add(controls.getObject());
+
+        // --- منطق مدیریت دسته‌ها (Batches 1 to 1000) ---
+        let currentBatchIndex = 0; // 0 تا 9
+        const totalBatches = 10;
+        let numbers = [];
+        let targets = [];
+        let currentStep = 0;
+        let batchStart = 1;
+        let batchEnd = 100;
+        let isTransitioning = false;
+
+        // تابع تولید اعداد اول تا یک سقف مشخص (برای تشخیص اینکه چه مضاربی را باید خط بزنیم)
+        function getPrimesUpTo(max) {
+            const sieve = new Array(max + 1).fill(true);
+            const primes = [];
+            for (let p = 2; p <= max; p++) {
+                if (sieve[p]) {
+                    primes.push(p);
+                    for (let i = p * p; i <= max; i += p) sieve[i] = false;
+                }
+            }
+            return primes;
+        }
+
+        // پاکسازی اهداف قبلی از صحنه
+        function clearBoard() {
+            numbers.forEach(target => {
+                scene.remove(target);
+                target.geometry.dispose();
+                target.material.map.dispose();
+                target.material.dispose();
+            });
+            numbers = [];
+        }
+
+        // ساخت روکش برای اعداد (پشتیبانی تا ۳ رقم)
+        function createNumberTexture(num) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256; 
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#0f3460';
+            ctx.beginPath();
+            ctx.arc(128, 128, 120, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.lineWidth = 12;
+            ctx.strokeStyle = '#e94560';
+            ctx.stroke();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 90px Tahoma, Arial'; // سایز کوچکتر برای جا شدن اعداد ۳ رقمی
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(num, 128, 140);
+            
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // بارگذاری یک دسته ۱۰۰تایی جدید
+        function loadBatch(index) {
+            clearBoard();
+            isTransitioning = false;
+            currentBatchIndex = index;
+            batchStart = currentBatchIndex * 100 + 1;
+            batchEnd = (currentBatchIndex + 1) * 100;
+            
+            batchDisplay.innerText = `دسته: ${currentBatchIndex + 1} از ${totalBatches}`;
+            feedbackEl.innerText = "";
+
+            // چیدمان ۱۰۰ هدف در شبکه ۱۰ در ۱۰
+            const radius = 14; // شعاع بزرگتر برای جا دادن ۱۰۰ عدد
+            for (let i = batchStart; i <= batchEnd; i++) {
+                const texture = createNumberTexture(i);
+                const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+                const geometry = new THREE.CircleGeometry(0.5, 32); 
+                const targetBoard = new THREE.Mesh(geometry, material);
+
+                const localIndex = i - batchStart;
+                const row = Math.floor(localIndex / 10);
+                const col = localIndex % 10;
+                
+                // پخش کردن در نیم دایره مقابل کاربر
+                const angle = (col / 9) * (Math.PI * 0.8) - (Math.PI * 0.4); 
+                
+                targetBoard.position.x = Math.sin(angle) * radius;
+                targetBoard.position.y = 6.5 - (row * 1.1); // ارتفاع شبکه
+                targetBoard.position.z = -Math.cos(angle) * radius;
+                
+                targetBoard.lookAt(0, targetBoard.position.y, 0);
+
+                targetBoard.userData = { number: i, isHit: false };
+                scene.add(targetBoard);
+                numbers.push(targetBoard);
+            }
+
+            setupTargetsForBatch();
+            currentStep = 0;
+            updateStepLogic(); // رفتن به اولین گامی که عدد برای زدن دارد
+        }
+
+        // تولید دستورات شلیک بر اساس اعداد موجود در بازه
+        function setupTargetsForBatch() {
+            targets = [];
+            if (batchStart === 1) {
+                targets.push({ divisor: 1, text: "گام ۱: عدد ۱ را شلیک کن (نه اول است نه مرکب)" });
+            }
+            
+            // در غربال اراتستن، باید مضارب اعداد اول را تا جذر عدد نهایی بررسی کنیم
+            const maxDivisor = Math.floor(Math.sqrt(batchEnd));
+            const primes = getPrimesUpTo(maxDivisor);
+            
+            primes.forEach(p => {
+                targets.push({ divisor: p, text: `مضارب ${p} را شلیک کن (آنهایی که خط نخورده‌اند)` });
+            });
+            
+            targets.push({ divisor: 'done', text: `عالی! اعداد باقی‌مانده در این دسته، اول هستند.` });
+        }
+
+        // بررسی اینکه آیا در گام فعلی، هدفی برای زدن باقی مانده است یا خیر؟
+        function countRemainingForCurrentStep() {
+            let count = 0;
+            const currentDivisor = targets[currentStep].divisor;
+            if (currentDivisor === 'done') return 0;
+
+            numbers.forEach(target => {
+                if (!target.userData.isHit) {
+                    const num = target.userData.number;
+                    if (currentDivisor === 1 && num === 1) count++;
+                    else if (currentDivisor !== 1 && num % currentDivisor === 0 && num !== currentDivisor) count++;
+                }
+            });
+            return count;
+        }
+
+        // بروزرسانی مرحله و رد کردن خودکار مراحلی که مضربی در این بازه ندارند
+        function updateStepLogic() {
+            if (targets[currentStep].divisor === 'done') {
+                handleBatchComplete();
+                return;
+            }
+
+            const remaining = countRemainingForCurrentStep();
+            // اگر هیچ مضربی برای این عدد اول در این ۱۰۰ تای فعلی وجود نداشت، برو گام بعدی
+            if (remaining === 0) {
+                currentStep++;
+                updateStepLogic();
+            } else {
+                instructionEl.innerText = targets[currentStep].text;
+            }
+        }
+
+        // وقتی یک دسته ۱۰۰تایی تمام می‌شود
+        function handleBatchComplete() {
+            isTransitioning = true;
+            playSound('levelUp');
+            instructionEl.innerText = targets[currentStep].text;
+            feedbackEl.innerText = "دسته بعدی تا چند ثانیه دیگر بارگذاری می‌شود...";
+            feedbackEl.style.color = '#ffd700';
+            
+            // سبز کردن اعداد اول باقی‌مانده
+            numbers.forEach(target => {
+                if (!target.userData.isHit) {
+                    target.material.color.setHex(0x00ffcc);
+                }
+            });
+
+            // انتقال به دسته بعدی بعد از ۳.۵ ثانیه
+            setTimeout(() => {
+                if (currentBatchIndex + 1 < totalBatches) {
+                    loadBatch(currentBatchIndex + 1);
+                } else {
+                    instructionEl.innerText = "تبریک! تمام اعداد اول از ۱ تا ۱۰۰۰ را پیدا کردید!";
+                    feedbackEl.innerText = `امتیاز نهایی شما: ${score}`;
+                }
+            }, 3500);
+        }
+
+        // --- تعامل (شلیک) ---
+        const raycaster = new THREE.Raycaster();
+        
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && controls.isLocked && !isTransitioning) {
+                crosshair.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                setTimeout(() => crosshair.style.transform = 'translate(-50%, -50%) scale(1)', 100);
+                
+                playSound('shoot');
+                raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+                checkIntersection();
+            }
+        });
+
+        function checkIntersection() {
+            if (targets[currentStep].divisor === 'done' || isTransitioning) return;
+
+            const intersects = raycaster.intersectObjects(numbers);
+            if (intersects.length > 0) {
+                const object = intersects[0].object;
+                if (object.userData.isHit) return;
+
+                const num = object.userData.number;
+                const currentDivisor = targets[currentStep].divisor;
+
+                let isValidHit = false;
+                if (currentDivisor === 1 && num === 1) isValidHit = true;
+                else if (currentDivisor !== 1 && num % currentDivisor === 0 && num !== currentDivisor) isValidHit = true;
+
+                if (isValidHit) {
+                    // شلیک صحیح
+                    playSound('correct');
+                    updateScore(10);
+                    
+                    object.userData.isHit = true;
+                    object.material.color.setHex(0xff3333); 
+                    feedbackEl.innerText = `درست! عدد ${num} خط خورد (+۱۰)`;
+                    feedbackEl.style.color = '#00ffcc';
+                    
+                    const fall = setInterval(() => {
+                        object.rotation.x -= 0.1;
+                        object.position.y -= 0.05;
+                        object.material.opacity -= 0.05;
+                        if (object.material.opacity <= 0) {
+                            clearInterval(fall);
+                            object.visible = false;
+                        }
+                    }, 16);
+
+                    // بررسی گام بعدی
+                    if (countRemainingForCurrentStep() === 0) {
+                        currentStep++;
+                        updateStepLogic();
+                    }
+
+                } else {
+                    // شلیک غلط
+                    playSound('wrong');
+                    updateScore(-5);
+                    feedbackEl.innerText = `اشتباه! ${num} خط نمی‌خورد (-۵)`;
+                    feedbackEl.style.color = '#ff3366';
+                    
+                    const startX = object.position.x;
+                    let shakeCount = 0;
+                    const shake = setInterval(() => {
+                        object.position.x = startX + (Math.random() - 0.5) * 0.2;
+                        shakeCount++;
+                        if(shakeCount > 10) {
+                            clearInterval(shake);
+                            object.position.x = startX;
+                        }
+                    }, 16);
+                }
+            }
+        }
+
+        // اجرای اولین دسته هنگام شروع
+        loadBatch(0);
+
+        // --- حلقه رندر ---
+        renderer.setAnimationLoop(() => {
+            renderer.render(scene, camera);
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

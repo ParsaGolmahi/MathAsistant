@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Pytest
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Ruff
+.ruff_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# SQLite
+*.db
+*.sqlite3
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Railway
+.railway/
+
+# Uploads
+uploads/
+temp/
+tmp/
