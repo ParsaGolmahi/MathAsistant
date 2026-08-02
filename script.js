@@ -3066,7 +3066,7 @@ function clearEgyptian() {
       
 
 // ========== معلم هوش مصنوعی (نسخه جدید با Backend) ==========
-const MY_BACKEND_URL = "http://localhost:8000"; // آدرس سرور پایتون
+const MY_BACKEND_URL = "https://mathasistantbackend-production.up.railway.app/api/support/chat"; // آدرس سرور پایتون
 
 async function askTeacher() {
     const input = document.getElementById("aiQuestion");
