@@ -1,7 +1,7 @@
 # IMA - Intelligent Mathematics Assistant 🚀
 
 <p align="center">
-  <img src="logo.png" width="180" alt="IMA Logo">
+  <img src="IMA-Purple.png" width="180" alt="IMA Logo">
 </p>
 
 <h3 align="center">
