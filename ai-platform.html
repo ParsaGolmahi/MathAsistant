@@ -1060,31 +1060,51 @@ async function askAvatarAI(userText) {
   setAvatarStatus("در حال فکر کردن...", true);
   showTranscript("شما: " + userText);
 
-  const actualModel = modelMapping[currentModelKey];
-
   try {
-    if (!avatarConvId) {
-      const r = await fetch(`${API}/ai/conversations`, {
-        method: "POST",
-        headers: authHeaders(),
-        body: JSON.stringify({ title: "آواتار - " + userText.substring(0, 30), model: actualModel })
-      });
-      const s = await r.json();
-      avatarConvId = s.id;
-    }
-
-    const response = await fetch(`${API}/ai/chat`, {
+    const resp = await fetch(`${API}/avatar/voice_query`, {
       method: "POST",
-      headers: authHeaders(),
-      body: JSON.stringify({ conversation_id: avatarConvId, content: userText, model: actualModel })
+      headers: Object.assign({ "Content-Type": "application/json" }, authHeaders()),
+      body: JSON.stringify({ text: userText, voice: "alloy", speed: 1.0 })
     });
 
-    if (!response.ok) throw new Error("Chat error " + response.status);
-    const data = await response.json();
-    const answerText = data.content || "متأسفم، پاسخی دریافت نشد.";
+    if (!resp.ok) throw new Error("Avatar voice error " + resp.status);
+    const data = await resp.json();
+    const answerText = data.text || "متأسفم، پاسخی دریافت نشد.";
 
     showTranscript("ایما: " + answerText);
-    await speakText(answerText);
+
+    if (data.audio) {
+      // decode base64 to audio blob
+      const byteChars = atob(data.audio);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) byteNumbers[i] = byteChars.charCodeAt(i);
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      currentAudioEl = audio;
+
+      audio.onplay = () => {
+        startAvatarSpeaking();
+        setAvatarStatus("در حال صحبت...", true);
+      };
+      audio.onended = () => {
+        URL.revokeObjectURL(url);
+        currentAudioEl = null;
+        stopAvatarSpeaking();
+        setAvatarStatus("آماده صحبت", false);
+      };
+      audio.onerror = () => {
+        URL.revokeObjectURL(url);
+        currentAudioEl = null;
+        stopAvatarSpeaking();
+        setAvatarStatus("خطا در پخش صدا", false);
+      };
+
+      await audio.play();
+    } else {
+      await speakText(answerText);
+    }
 
   } catch (err) {
     console.error("Avatar AI error:", err);
