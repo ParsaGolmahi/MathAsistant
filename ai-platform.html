@@ -836,6 +836,10 @@ async function loadThreads() {
   } catch (err) { console.error("Error loading threads:", err); renderEmptyState(); }
 }
 
+async function loadIMAThreads() {
+  return loadThreads();
+}
+
 // رندر کردن تاریخچه چت‌ها در سایدبار
 function renderThreads(threads) {
   const list = document.getElementById("threadList");
@@ -1085,7 +1089,7 @@ async function sendIMAMessage() {
     try {
 
       const response = await fetch(
-        `${API}/ima/conversations`,
+        `${API}/ai/conversations`,
         {
           method: "POST",
           headers: authHeaders(),
@@ -1127,7 +1131,7 @@ async function sendIMAMessage() {
   try {
 
     const response = await fetch(
-      `${API}/ima/chat`,
+      `${API}/ai/ima-chat`,
       {
         method: "POST",
 
