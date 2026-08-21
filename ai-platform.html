@@ -517,14 +517,14 @@ body { display: flex; overflow: hidden; }
         Fast
       </button>
 
-      <button class="model-btn active"
+            <button class="model-btn"
               data-ui="flash"
               onclick="selectModel('flash')">
         <i class="fas fa-meteor"></i>
         Pro
       </button>
 
-      <button class="model-btn ima-model-btn"
+            <button class="model-btn ima-model-btn active"
               data-ui="ima"
               onclick="selectModel('ima')">
         <img src="IMA-Purple.png" alt="">
@@ -618,6 +618,48 @@ const modelMapping = {
 };
 
 let currentModelKey = 'ima';
+
+function getModelDisplayName(key) {
+  switch (key) {
+    case 'lite': return 'Fast';
+    case 'flash': return 'Pro';
+    case 'pro': return 'Pro';
+    case 'ima': return 'ایما';
+    default: return key;
+  }
+}
+
+function renderEmptyStateCommon(modelKey) {
+  const modelLabel = getModelDisplayName(modelKey);
+  return `
+    <div class="empty-state">
+      <div class="empty-logo"><img src="IMA-Purple.png" alt="IMA Logo"></div>
+      <h1 class="empty-title">چگونه می‌توانم در ریاضی کمکت کنم؟</h1>
+      <p style="color: var(--ink-2); margin-top: -25px; margin-bottom: 14px; font-size: 0.95rem;">
+        دستیار هوشمند رایگان شما برای یادگیری و حل مسائل
+        <br><strong>مدل انتخاب‌شده: ${modelLabel}</strong>
+      </p>
+      <div class="suggestions-grid">
+        <div class="suggestion-card" onclick="useSuggestion('رابطه فیثاغورس در مثلث قائم‌الزاویه را توضیح بده')">
+          <span class="suggestion-icon"><i class="fas fa-shapes"></i></span>
+          <div class="suggestion-text">هندسه و فیثاغورس</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('حاصل عبارت 2x + 3x - 5 + x را ساده کن')">
+          <span class="suggestion-icon"><i class="fas fa-square-root-variable"></i></span>
+          <div class="suggestion-text">جبر و معادله</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('چگونه جذر تقریبی یک عدد را حساب کنیم؟')">
+          <span class="suggestion-icon"><i class="fas fa-calculator"></i></span>
+          <div class="suggestion-text">اعداد توان‌دار و جذر</div>
+        </div>
+        <div class="suggestion-card" onclick="useSuggestion('بردارها را چگونه با هم جمع کنیم؟')">
+          <span class="suggestion-icon"><i class="fas fa-arrow-trend-up"></i></span>
+          <div class="suggestion-text">بردار و مختصات</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 // توابع کمکی برای گرفتن توکن و هدرها
 const getToken = () => localStorage.getItem("ima_token");
@@ -721,71 +763,7 @@ function switchToNormalMode() {
 }
 
 function renderIMAEmptyState() {
-  document.getElementById("feed").innerHTML = `
-    <div class="empty-state">
-
-      <div class="empty-logo">
-        <img src="IMA-Purple.png" alt="ایما">
-      </div>
-
-      <h1 class="empty-title">
-        سلام! من ایما هستم 👋
-      </h1>
-
-      <p style="
-        color: var(--ink-2);
-        margin-top: -25px;
-        margin-bottom: 30px;
-        font-size: 0.95rem;
-      ">
-        دستیار هوشمند رایگان شما برای یادگیری و حل مسائل
-      </p>
-
-      <div class="suggestions-grid">
-
-        <div class="suggestion-card"
-             onclick="useIMASuggestion('معادله درجه اول را به زبان ساده برایم توضیح بده')">
-          <span class="suggestion-icon">
-            <i class="fas fa-square-root-variable"></i>
-          </span>
-          <div class="suggestion-text">
-            معادله را یادم بده
-          </div>
-        </div>
-
-        <div class="suggestion-card"
-             onclick="useIMASuggestion('قضیه فیثاغورس را با یک مثال توضیح بده')">
-          <span class="suggestion-icon">
-            <i class="fas fa-shapes"></i>
-          </span>
-          <div class="suggestion-text">
-            فیثاغورس
-          </div>
-        </div>
-
-        <div class="suggestion-card"
-             onclick="useIMASuggestion('یک سؤال ریاضی پایه نهم از من بپرس')">
-          <span class="suggestion-icon">
-            <i class="fas fa-graduation-cap"></i>
-          </span>
-          <div class="suggestion-text">
-            از من سؤال بپرس
-          </div>
-        </div>
-
-        <div class="suggestion-card"
-             onclick="useIMASuggestion('در درس ریاضی پایه نهم چه مباحثی را می‌توانی به من یاد بدهی؟')">
-          <span class="suggestion-icon">
-            <i class="fas fa-book"></i>
-          </span>
-          <div class="suggestion-text">
-            مباحث پایه نهم
-          </div>
-        </div>
-
-      </div>
-    </div>
-  `;
+  document.getElementById("feed").innerHTML = renderEmptyStateCommon(currentModelKey);
 }
 
 
@@ -902,30 +880,7 @@ function startNewChat() {
 
 // صفحه پیشنهادات شروع چت (مخصوص ریاضی هشتم)
 function renderEmptyState() {
-  document.getElementById("feed").innerHTML = `
-    <div class="empty-state">
-      <div class="empty-logo"><img src="IMA-Purple.png" alt="IMA Logo"></div>
-      <h1 class="empty-title">چگونه می‌توانم در ریاضی کمکت کنم؟</h1>
-      <div class="suggestions-grid">
-        <div class="suggestion-card" onclick="useSuggestion('رابطه فیثاغورس در مثلث قائم‌الزاویه را توضیح بده')">
-          <span class="suggestion-icon"><i class="fas fa-shapes"></i></span>
-          <div class="suggestion-text">هندسه و فیثاغورس</div>
-        </div>
-        <div class="suggestion-card" onclick="useSuggestion('حاصل عبارت 2x + 3x - 5 + x را ساده کن')">
-          <span class="suggestion-icon"><i class="fas fa-square-root-variable"></i></span>
-          <div class="suggestion-text">جبر و معادله</div>
-        </div>
-        <div class="suggestion-card" onclick="useSuggestion('چگونه جذر تقریبی یک عدد را حساب کنیم؟')">
-          <span class="suggestion-icon"><i class="fas fa-calculator"></i></span>
-          <div class="suggestion-text">اعداد توان‌دار و جذر</div>
-        </div>
-        <div class="suggestion-card" onclick="useSuggestion('بردارها را چگونه با هم جمع کنیم؟')">
-          <span class="suggestion-icon"><i class="fas fa-arrow-trend-up"></i></span>
-          <div class="suggestion-text">بردار و مختصات</div>
-        </div>
-      </div>
-    </div>
-  `;
+  document.getElementById("feed").innerHTML = renderEmptyStateCommon(currentModelKey);
 }
 
 // جای‌گذاری متن پیشنهاد شده در باکس ورودی
@@ -1524,7 +1479,7 @@ function setMicUi(recording) {
   }
 }
 
-window.onload = () => { loadThreads(); };
+window.onload = () => { selectModel('ima'); loadThreads(); };
 </script>
 </body>
 </html>
