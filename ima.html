@@ -1334,604 +1334,502 @@ function openAvatarPage() {
                         </div>
                     </div>
         
-       <!-- تب 10: درسنامه ریاضی هشتم - مطابق ساختار کتاب درسی -->
-<div class="tab-content" id="tab-lesson">
-    <div class="section-header">
-        <h2><i class="fas fa-book"></i> درسنامه</h2>
-        <p class="section-description">درس‌های ریاضی پایه هشتم، منظم، روان و مطابق سرفصل‌های کتاب درسی</p>
-    </div>
-
-    <div class="tool-container">
-        <div class="result-card wide">
-            <h3><i class="fas fa-book-open"></i> فهرست درسنامه‌ها</h3>
-
-            <div class="lessons-list" id="lessonsListView" style="margin-bottom:30px;">
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;">
-                    <button onclick="showLesson('integers')" class="lesson-topic-btn">۱. عددهای صحیح و گویا</button>
-                    <button onclick="showLesson('primes')" class="lesson-topic-btn">۲. عددهای اول</button>
-                    <button onclick="showLesson('polygons')" class="lesson-topic-btn">۳. چندضلعی‌ها</button>
-                    <button onclick="showLesson('algebra')" class="lesson-topic-btn">۴. جبر و معادله</button>
-                    <button onclick="showLesson('vectors')" class="lesson-topic-btn">۵. بردار و مختصات</button>
-                    <button onclick="showLesson('triangle')" class="lesson-topic-btn">۶. مثلث</button>
-                    <button onclick="showLesson('power')" class="lesson-topic-btn">۷. توان و جذر</button>
-                    <button onclick="showLesson('statistics')" class="lesson-topic-btn">۸. آمار و احتمال</button>
-                    <button onclick="showLesson('circle')" class="lesson-topic-btn">۹. دایره</button>
-                </div>
+    <!-- تب 10: درسنامه -->
+        <div class="tab-content" id="tab-lesson">
+            <div class="section-header">
+                <h2><i class="fas fa-book"></i> درسنامه جامع و مفهومی</h2>
+                <p class="section-description">جزوات تفصیلی ریاضی هشتم، همراه با توضیحات کامل، نکات طلایی و مثال‌های حل‌شده (منطبق بر کتاب درسی)</p>
             </div>
-
-            <div id="lessonContent" style="display:none;">
-
-                <!-- فصل ۱ -->
-                <div class="lesson-content" id="lesson-integers" style="display:none;">
-                    <h3><i class="fas fa-sort-numeric-up"></i> فصل اول: عددهای صحیح و گویا</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. یادآوری عددهای صحیح</h4>
-                        <p>عددهای صحیح شامل عددهای طبیعی، صفر و قرینهٔ عددهای طبیعی هستند.</p>
-                        <div class="formula-box">ℤ = {...، −۳، −۲، −۱، ۰، ۱، ۲، ۳، ...}</div>
-                        <p><strong>قرینهٔ یک عدد:</strong> عددی است که با آن عدد فاصلهٔ یکسانی از صفر دارد، اما در طرف مخالف محور قرار می‌گیرد.</p>
-                        <div class="example-box">
-                            قرینهٔ ۵ برابر −۵ است و قرینهٔ −۷ برابر ۷ است.<br>
-                            قرینهٔ صفر، خود صفر است.
+            
+            <div class="tool-container">
+                <div class="result-card wide">
+                    <h3><i class="fas fa-book-open"></i> فهرست درسنامه‌ها</h3>
+                    
+                    <!-- لیست موضوعات -->
+                    <div class="lessons-list" id="lessonsListView" style="margin-bottom: 30px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <button onclick="showLesson('integers')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+                                <i class="fas fa-sort-numeric-up"></i><br>عددهای صحیح و گویا
+                            </button>
+                            <button onclick="showLesson('primes')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);">
+                                <i class="fas fa-hashtag"></i><br>عددهای اول و غربال
+                            </button>
+                            <button onclick="showLesson('polygons')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);">
+                                <i class="fas fa-shapes"></i><br>چندضلعی‌ها و تقارن
+                            </button>
+                            <button onclick="showLesson('algebra')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);">
+                                <i class="fas fa-square-root-alt"></i><br>جبر و معادله
+                            </button>
+                            <button onclick="showLesson('vectors')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(250, 112, 154, 0.3);">
+                                <i class="fas fa-arrows-alt"></i><br>بردار و مختصات
+                            </button>
+                            <button onclick="showLesson('triangle')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); color: white; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(48, 207, 208, 0.3);">
+                                <i class="fas fa-play"></i><br>مثلث و هم‌نهشتی
+                            </button>
+                            <button onclick="showLesson('power')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);">
+                                <i class="fas fa-superscript"></i><br>توان و جذر
+                            </button>
+                            <button onclick="showLesson('statistics')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #333; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);">
+                                <i class="fas fa-chart-bar"></i><br>آمار و احتمال
+                            </button>
+                            <button onclick="showLesson('circle')" class="lesson-topic-btn" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; border: none; padding: 20px; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 236, 210, 0.3);">
+                                <i class="fas fa-circle"></i><br>خط و دایره
+                            </button>
                         </div>
-                        <p><strong>قدر مطلق:</strong> فاصلهٔ یک عدد از صفر روی محور اعداد است و همیشه نامنفی است.</p>
-                        <div class="formula-box">|۵| = ۵ &nbsp;&nbsp;&nbsp; |−۵| = ۵ &nbsp;&nbsp;&nbsp; |۰| = ۰</div>
-                        <p>روی محور اعداد، هرچه به سمت راست حرکت کنیم، عددها بزرگ‌تر می‌شوند.</p>
                     </div>
+                    
+                    <!-- محتوای درسنامه‌ها -->
+                    <div id="lessonContent" style="display: none;">
+                        
+                        <!-- فصل ۱: عددهای صحیح و گویا -->
+                        <div class="lesson-content" id="lesson-integers" style="display: none;">
+                            <h3><i class="fas fa-sort-numeric-up"></i> فصل اول: عددهای صحیح و گویا</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
 
-                    <div class="lesson-section">
-                        <h4>۲. معرفی عددهای گویا</h4>
-                        <p>هر عددی که بتوان آن را به صورت کسر <strong>a/b</strong> نوشت، به‌طوری‌که <strong>a</strong> و <strong>b</strong> عدد صحیح و <strong>b ≠ ۰</strong> باشد، یک <strong>عدد گویا</strong> است.</p>
-                        <div class="formula-box">a/b ، به شرط b ≠ ۰</div>
-                        <p>هر عدد صحیح نیز گویاست، زیرا می‌توان آن را بر ۱ نوشت.</p>
-                        <div class="example-box">
-                            ۳ = ۳/۱ &nbsp;&nbsp; و &nbsp;&nbsp; −۴ = −۴/۱
-                        </div>
-                        <p>برای مقایسهٔ عددهای گویا می‌توان از محور اعداد، مخرج مشترک یا تبدیل مناسب کسرها استفاده کرد.</p>
-                    </div>
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">۱. یادآوری و تسلط بر عددهای صحیح</h4>
+                                <p style="line-height: 1.8;">مجموعه عددهای صحیح شامل عددهای طبیعی مثبت، قرینه آن‌ها (منفی‌ها) و عدد صفر است. یکی از مهم‌ترین مهارت‌های ریاضی، سرعت و دقت در جمع و تفریق این اعداد است.</p>
+                                <ul style="line-height: 2;">
+                                    <li><strong>جمع دو عدد هم‌علامت:</strong> اعداد را مانند حالت عادی با هم جمع می‌کنیم و در نهایت همان علامت مشترک را برای جواب می‌گذاریم. <br> <em>مثال:</em> $(-۱۲) + (-۱۵) = -۲۷$</li>
+                                    <li><strong>جمع دو عدد مختلف‌الامه‌ (یکی مثبت، یکی منفی):</strong> بدون در نظر گرفتن علامت‌ها، عدد کوچکتر را از عدد بزرگتر کم می‌کنیم. سپس برای جواب، علامت عددی را می‌گذاریم که در ظاهر بزرگتر بوده است. <br> <em>مثال:</em> $(+۱۸) + (-۲۵) = -۷$</li>
+                                    <li><strong>تفریق:</strong> تفریق همیشه به جمع تبدیل می‌شود. یعنی عدد اول را می‌نویسیم، عمل تفریق به جمع تبدیل شده و عدد دوم <strong>قرینه</strong> می‌شود. <br> <em>مثال:</em> $(-۸) - (-۱۲) \rightarrow (-۸) + (+۱۲) = +۴$</li>
+                                </ul>
+                            </div>
 
-                    <div class="lesson-section">
-                        <h4>۳. جمع و تفریق عددهای گویا</h4>
-                        <p>برای جمع یا تفریق کسرها، ابتدا مخرج مشترک پیدا می‌کنیم، سپس صورت‌ها را جمع یا تفریق می‌کنیم.</p>
-                        <div class="formula-box">
-                            a/b + c/d = (ad + bc) / bd<br>
-                            a/b − c/d = (ad − bc) / bd
-                        </div>
-                        <div class="example-box">
-                            ۲/۳ + ۱/۶ = ۴/۶ + ۱/۶ = ۵/۶<br><br>
-                            ۵/۶ − ۱/۴ = ۱۰/۱۲ − ۳/۱۲ = ۷/۱۲
-                        </div>
-                        <p>در جمع عددهای صحیح نیز می‌توان از محور اعداد و مفهوم قرینه کمک گرفت.</p>
-                    </div>
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">۲. شناخت جامع عددهای گویا</h4>
+                                <p style="line-height: 1.8;">هر عددی که بتوانیم آن را به شکل یک کسر $\frac{a}{b}$ بنویسیم (به شرطی که صورت و مخرج اعداد صحیح باشند و مخرج صفر نباشد)، یک <strong>عدد گویا</strong> نامیده می‌شود.</p>
+                                <div class="formula-box" style="background: #f0f0ff; padding: 15px; border-radius: 8px; border-right: 4px solid #667eea; margin: 15px 0;">
+                                    <strong>کدام اعداد گویا هستند؟</strong><br>
+                                    ۱. تمام عددهای طبیعی و صحیح (چون مخرج ۱ می‌گیرند. مثلا $-۵ = \frac{-۵}{۱}$)<br>
+                                    ۲. عددهای اعشاری (مثلا $۰/۴ = \frac{۴}{۱۰}$)<br>
+                                    ۳. عددهای مخلوط (پس از تبدیل به کسر بزرگتر از واحد)
+                                </div>
+                                <p style="line-height: 1.8;"><strong>پیدا کردن کسر بین دو کسر:</strong> بین هر دو عدد گویا، بی‌شمار عدد گویای دیگر وجود دارد. برای پیدا کردن کسر بین دو کسر، ابتدا هم‌مخرج می‌کنیم، سپس صورت و مخرج هر دو کسر را در عددی (مثل ۱۰) ضرب می‌کنیم تا فاصله بین صورت‌ها زیاد شود.</p>
+                            </div>
 
-                    <div class="lesson-section">
-                        <h4>۴. ضرب و تقسیم عددهای گویا</h4>
-                        <p>در ضرب کسرها، صورت‌ها را در هم و مخرج‌ها را در هم ضرب می‌کنیم.</p>
-                        <div class="formula-box">a/b × c/d = ac/bd</div>
-                        <p>برای تقسیم یک کسر بر کسر دیگر، کسر دوم را معکوس کرده و عمل ضرب را انجام می‌دهیم.</p>
-                        <div class="formula-box">a/b ÷ c/d = a/b × d/c</div>
-                        <div class="example-box">
-                            (−۳/۵) × (۱۰/۹) = −۳۰/۴۵ = −۲/۳<br><br>
-                            ۲/۳ ÷ ۴/۵ = ۲/۳ × ۵/۴ = ۱۰/۱۲ = ۵/۶
-                        </div>
-                        <p><strong>نکته:</strong> تقسیم بر صفر تعریف نشده است.</p>
-                    </div>
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">۳. چهار عمل اصلی روی عددهای گویا</h4>
+                                <p style="line-height: 1.8;"><strong>جمع و تفریق کسری:</strong> شرط اصلی، داشتن مخرج مشترک است. بهترین مخرج مشترک، ک.م.م مخرج‌هاست. پس از هم‌مخرج کردن، یکی از مخرج‌ها را نوشته و صورت‌ها را با توجه به علامت‌هایشان جمع یا تفریق می‌کنیم.</p>
+                                <p style="line-height: 1.8;"><strong>ضرب کسری:</strong> نیازی به مخرج مشترک نیست! اما <strong>ساده کردن</strong> قبل از ضرب بسیار مهم است. هر عددی از صورت با هر عددی از مخرج که به یک عدد مشترک بخش‌پذیر باشند، ساده می‌شوند. سپس صورت در صورت و مخرج در مخرج ضرب می‌شود.</p>
+                                <p style="line-height: 1.8;"><strong>تقسیم کسری:</strong> کسر اول (مقسوم) بدون تغییر نوشته می‌شود. علامت تقسیم تبدیل به ضرب می‌شود. کسر دوم (مقسوم‌علیه) <strong>معکوس</strong> (سروته) می‌شود. حالا طبق قوانین ضرب عمل می‌کنیم.</p>
+                                <div class="example-box" style="background: #e8f4ff; padding: 15px; border-radius: 8px; border-right: 4px solid #4facfe; margin: 15px 0;">
+                                    <strong>یک مثال کامل از تقسیم:</strong><br>
+                                    $(-\frac{۱۵}{۸}) \div (+\frac{۲۵}{۱۲}) = (-\frac{۱۵}{۸}) \times (+\frac{۱۲}{۲۵})$<br>
+                                    حالا ساده می‌کنیم: ۱۵ و ۲۵ هر دو به ۵ ساده می‌شوند (می‌شوند ۳ و ۵). ۱۲ و ۸ هر دو به ۴ ساده می‌شوند (می‌شوند ۳ و ۲).<br>
+                                    جواب نهایی: $-\frac{۳ \times ۳}{۲ \times ۵} = -\frac{۹}{۱۰}$
+                                </div>
+                            </div>
 
-                    <div class="lesson-section">
-                        <h4>⭐ جمع‌بندی فصل</h4>
-                        <ul>
-                            <li>عددهای صحیح بخشی از عددهای گویا هستند.</li>
-                            <li>قرینهٔ هر عدد، عددی با علامت مخالف است؛ قرینهٔ صفر، صفر است.</li>
-                            <li>قدر مطلق، فاصلهٔ عدد از صفر است.</li>
-                            <li>در جمع و تفریق کسرها به مخرج مشترک نیاز داریم.</li>
-                            <li>در ضرب کسرها، صورت‌ها و مخرج‌ها را جداگانه ضرب می‌کنیم.</li>
-                            <li>در تقسیم کسرها، کسر دوم را معکوس می‌کنیم و ضرب می‌کنیم.</li>
-                        </ul>
+                            <div class="lesson-section" style="background: #fff8e1; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 10px;">⭐ نکات کلیدی فصل ۱</h4>
+                                <ul style="line-height: 2;">
+                                    <li>علامت منفی کسر می‌تواند در صورت، در مخرج، یا پشت خط کسری باشد. هر سه حالت با هم برابرند. اما معمولاً بهتر است منفی را به صورت بدهیم.</li>
+                                    <li>اگر صورت و مخرج یک کسر، هر دو منفی باشند، حاصل آن کسر مثبت است. $\frac{-۳}{-۴} = +\frac{۳}{۴}$</li>
+                                    <li>حاصل‌ضرب هر عدد گویا (به جز صفر) در معکوس خودش، همیشه برابر <strong>۱</strong> است.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۲: اعداد اول -->
+                        <div class="lesson-content" id="lesson-primes" style="display: none;">
+                            <h3><i class="fas fa-hashtag"></i> فصل دوم: عددهای اول</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f5576c; border-bottom: 2px solid #f5576c; padding-bottom: 10px;">۱. تعریف دقیق اعداد اول و مرکب</h4>
+                                <p style="line-height: 1.8;">در ریاضیات، اعداد طبیعی (به جز ۱) به دو دسته تقسیم می‌شوند:</p>
+                                <ul style="line-height: 2;">
+                                    <li><strong>عدد اول:</strong> عددی که هیچ مقسوم‌علیهی به جز ۱ و خودش ندارد. یعنی نمی‌توان آن را به صورت ضرب دو عدد طبیعی بزرگتر از ۱ نوشت. <br> <em>لیست اعداد اول زیر ۲۰:</em> ۲, ۳, ۵, ۷, ۱۱, ۱۳, ۱۷, ۱۹</li>
+                                    <li><strong>عدد مرکب:</strong> عددی که بیش از دو شمارنده دارد. یعنی علاوه بر ۱ و خودش، حداقل بر یک عدد دیگر هم بخش‌پذیر است. <br> <em>مثال:</em> ۱۵ مرکب است چون $۳ \times ۵ = ۱۵$.</li>
+                                </ul>
+                                <div class="formula-box" style="background: #fff0f5; padding: 15px; border-radius: 8px; border-right: 4px solid #f5576c; margin: 15px 0;">
+                                    <strong>وضعیت استثنایی عدد ۱:</strong> عدد ۱ نه اول است و نه مرکب. چون فقط یک شمارنده (یعنی خودش) را دارد.
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f5576c; border-bottom: 2px solid #f5576c; padding-bottom: 10px;">۲. دو عدد متباین (نسبت به هم اول)</h4>
+                                <p style="line-height: 1.8;">هرگاه بزرگترین مقسوم‌علیه مشترک (ب.م.م) دو عدد برابر با <strong>یک</strong> شود، می‌گوییم آن دو عدد نسبت به هم اول هستند (یا متباین‌اند).</p>
+                                <p style="line-height: 1.8;"><strong>قوانین سریع اعداد متباین:</strong></p>
+                                <ol style="line-height: 2;">
+                                    <li>دو عدد اول متفاوت، همیشه نسبت به هم متباین‌اند (مثل ۷ و ۱۱).</li>
+                                    <li>دو عدد طبیعی متوالی (پشت سر هم) همیشه نسبت به هم متباین‌اند (مثل ۱۴ و ۱۵).</li>
+                                    <li>عدد ۱ با هر عدد دیگری متباین است.</li>
+                                </ol>
+                                <div class="example-box" style="background: #ffe8ec; padding: 15px; border-radius: 8px; border-right: 4px solid #f093fb; margin: 15px 0;">
+                                    <strong>دقت کنید:</strong> لزومی ندارد دو عددی که نسبت به هم اولند، خودشان هم عدد اول باشند! مثلاً ۸ و ۱۵ هر دو عدد مرکب هستند، اما ب.م.م آن‌ها ۱ است، پس نسبت به هم اولند.
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f5576c; border-bottom: 2px solid #f5576c; padding-bottom: 10px;">۳. روش غربال (پیدا کردن اعداد اول)</h4>
+                                <p style="line-height: 1.8;">برای پیدا کردن همه اعداد اول از ۱ تا یک عدد مشخص (مثلا ۵۰)، از روش الک کردن یا غربال اراتستن استفاده می‌کنیم. مراحل کار:</p>
+                                <ol style="line-height: 2.2;">
+                                    <li>ابتدا عدد ۱ را خط می‌زنیم.</li>
+                                    <li>دور عدد ۲ خط می‌کشیم (چون اول است) و تمام مضرب‌های ۲ (اعداد زوج) را خط می‌زنیم.</li>
+                                    <li>دور عدد ۳ خط می‌کشیم و تمام مضرب‌های ۳ را خط می‌زنیم. (اولین مضربی که برای ۳ خط می‌خورد مربع آن یعنی ۹ است).</li>
+                                    <li>همین کار را برای ۵، ۷ و ... انجام می‌دهیم.</li>
+                                    <li><strong>چه زمانی توقف کنیم؟</strong> زمانی که مربع (توان دوم) عدد اولی که می‌خواهیم مضرب‌هایش را خط بزنیم، از عدد پایانی ما بزرگتر شود. در مثال ۵۰، مربع ۷ می‌شود ۴۹ (خط می‌زنیم). اما عدد اول بعدی ۱۱ است که مربعش ۱۲۱ می‌شود و در لیست ما نیست. پس کار تمام است و اعداد باقی‌مانده همگی اول هستند!</li>
+                                </ol>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f5576c; border-bottom: 2px solid #f5576c; padding-bottom: 10px;">۴. تعیین اول یا مرکب بودن یک عدد دلخواه</h4>
+                                <p style="line-height: 1.8;">اگر عدد بزرگی مانند ۱۳۱ به ما دادند و پرسیدند اول است یا مرکب، نیاز نیست آن را بر همه اعداد تقسیم کنیم. یک قاعده طلایی داریم:</p>
+                                <div class="formula-box" style="background: #fff0f5; padding: 15px; border-radius: 8px; border-right: 4px solid #f5576c; margin: 15px 0;">
+                                    کافیست عدد را فقط بر <strong>اعداد اولی که از جذر تقریبی آن عدد کوچکترند</strong> تقسیم کنیم.<br>
+                                    اگر بر هیچ‌کدام بخش‌پذیر نبود $\rightarrow$ عدد اول است.<br>
+                                    اگر حتی بر یکی از آن‌ها بخش‌پذیر شد $\rightarrow$ عدد مرکب است.
+                                </div>
+                                <div class="example-box" style="background: #ffe8ec; padding: 15px; border-radius: 8px; border-right: 4px solid #f093fb; margin: 15px 0;">
+                                    <strong>مثال: بررسی اول بودن عدد ۱۳۱</strong><br>
+                                    مرحله ۱: جذر تقریبی ۱۳۱ را پیدا می‌کنیم. (می‌دانیم $۱۱^۲=۱۲۱$ و $۱۲^۲=۱۴۴$). پس جذر ۱۳۱ حدود ۱۱/۴ است.<br>
+                                    مرحله ۲: اعداد اول کوچکتر از ۱۱/۴ عبارتند از: ۲، ۳، ۵، ۷، ۱۱.<br>
+                                    مرحله ۳: عدد ۱۳۱ را بر این پنج عدد تقسیم (یا قواعد بخش‌پذیری را چک) می‌کنیم.<br>
+                                    چون ۱۳۱ بر هیچ‌کدام از ۲، ۳، ۵، ۷ و ۱۱ بخش‌پذیر نیست، نتیجه می‌گیریم <strong>۱۳۱ قطعا عدد اول است.</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۳: چندضلعی‌ها -->
+                        <div class="lesson-content" id="lesson-polygons" style="display: none;">
+                            <h3><i class="fas fa-shapes"></i> فصل سوم: چندضلعی‌ها و تقارن</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #4facfe; border-bottom: 2px solid #4facfe; padding-bottom: 10px;">۱. زاویه‌های داخلی و خارجی چندضلعی‌ها</h4>
+                                <p style="line-height: 1.8;"><strong>چندضلعی منتظم:</strong> شکلی که تمام اضلاعش با هم و تمام زوایایش با هم برابر باشند (مثل مربع یا مثلث متساوی‌الاضلاع).</p>
+                                <p style="line-height: 1.8;">در هر چندضلعی دلخواه، اگر یکی از اضلاع را امتداد دهیم، زاویه‌ای که بیرون شکل ساخته می‌شود، <strong>زاویه خارجی</strong> نام دارد.</p>
+                                <div class="formula-box" style="background: #e8f6ff; padding: 15px; border-radius: 8px; border-right: 4px solid #4facfe; margin: 15px 0;">
+                                    <strong>فرمول‌های کلیدی برای یک $n$ ضلعی:</strong><br><br>
+                                    ۱. <strong>مجموع زاویه‌های داخلی:</strong> $(n - ۲) \times ۱۸۰$ <br>
+                                    ۲. <strong>اندازه هر زاویه داخلی (فقط در منتظم):</strong> $\frac{(n - ۲) \times ۱۸۰}{n}$ <br>
+                                    ۳. <strong>مجموع زاویه‌های خارجی (در هر چندضلعی محدب):</strong> همیشه $۳۶۰^\circ$ است. فرقی نمی‌کند شکل مثلث باشد یا صد ضلعی!<br>
+                                    ۴. <strong>اندازه هر زاویه خارجی (فقط در منتظم):</strong> $\frac{۳۶۰}{n}$ <br>
+                                    ۵. در هر رأس، جمع زاویه داخلی و زاویه خارجی مجاورش همواره ۱۸۰ درجه است.
+                                </div>
+                                <div class="example-box" style="background: #d6efff; padding: 15px; border-radius: 8px; border-right: 4px solid #00f2fe; margin: 15px 0;">
+                                    <strong>مثال:</strong> در یک ۱۰ ضلعی منتظم:<br>
+                                    هر زاویه خارجی = $۳۶۰ \div ۱۰ = ۳۶^\circ$<br>
+                                    هر زاویه داخلی = $۱۸۰ - ۳۶ = ۱۴۴^\circ$ (این روش بسیار سریع‌تر از فرمول طولانی زاویه داخلی است!)
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #4facfe; border-bottom: 2px solid #4facfe; padding-bottom: 10px;">۲. مرکز تقارن و محور تقارن</h4>
+                                <p style="line-height: 1.8;"><strong>محور تقارن (خط تا):</strong> خطی که شکل را به دو نیمه کاملاً مساوی و آینه‌ای تقسیم می‌کند.</p>
+                                <p style="line-height: 1.8;"><strong>مرکز تقارن:</strong> نقطه‌ای در مرکز شکل که اگر شکل را حول آن نقطه ۱۸۰ درجه بچرخانیم، شکل جدید دقیقاً روی شکل اولیه بیفتد (مثل کارت‌های بازی).</p>
+                                <div class="formula-box" style="background: #e8f6ff; padding: 15px; border-radius: 8px; border-right: 4px solid #4facfe; margin: 15px 0;">
+                                    <strong>قوانین تقارن در چندضلعی‌های منتظم:</strong><br>
+                                    - یک $n$ ضلعی منتظم، همیشه <strong>دقیقاً $n$ محور تقارن</strong> دارد.<br>
+                                    - اگر تعداد اضلاع ($n$) <strong>زوج</strong> باشد (مثل مربع، شش‌ضلعی)، شکل <strong>مرکز تقارن هم دارد.</strong><br>
+                                    - اگر تعداد اضلاع ($n$) <strong>فرد</strong> باشد (مثل مثلث، پنج‌ضلعی)، شکل <strong>مرکز تقارن ندارد.</strong>
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #4facfe; border-bottom: 2px solid #4facfe; padding-bottom: 10px;">۳. شناخت دقیق چهارضلعی‌های مهم</h4>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>متوازی‌الاضلاع:</strong> چهارضلعی که اضلاع روبروی آن دو به دو موازی‌اند.
+                                        <ul>
+                                            <li>اضلاع و زوایای روبرو مساوی‌اند.</li>
+                                            <li>قطرها یکدیگر را نصف می‌کنند.</li>
+                                            <li>مرکز تقارن دارد اما محور تقارن ندارد.</li>
+                                            <li>مجموع دو زاویه مجاور (کنار هم) ۱۸۰ درجه است.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>مستطیل:</strong> متوازی‌الاضلاعی است که یک زاویه قائمه دارد (پس هر چهار زاویه‌اش قائمه می‌شود). علاوه بر خواص متوازی‌الاضلاع، <strong>قطرهای مستطیل با هم برابرند.</strong> دارای ۲ محور تقارن است.</li>
+                                    <li><strong>لوزی:</strong> متوازی‌الاضلاعی است که دو ضلع مجاور آن برابرند (پس هر ۴ ضلعش برابر می‌شوند). علاوه بر خواص متوازی‌الاضلاع، <strong>قطرهای لوزی بر هم عمودند و نیمساز زاویه‌ها هستند.</strong> دارای ۲ محور تقارن است.</li>
+                                    <li><strong>مربع:</strong> بهترین چهارضلعی است! هم مستطیل است (زوایای ۹۰) و هم لوزی است (اضلاع برابر). قطرهایش هم مساوی‌اند و هم عمودمنصف یکدیگر. ۴ محور تقارن دارد.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۴: جبر و معادله -->
+                        <div class="lesson-content" id="lesson-algebra" style="display: none;">
+                            <h3><i class="fas fa-square-root-alt"></i> فصل چهارم: جبر و معادله</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #43e97b; border-bottom: 2px solid #43e97b; padding-bottom: 10px;">۱. ساده کردن عبارت‌های جبری</h4>
+                                <p style="line-height: 1.8;">در یک عبارت جبری، <strong>جملات متشابه</strong> جملاتی هستند که قسمت حروفی (متغیر) آن‌ها کاملاً عین هم باشد؛ یعنی هم حروف یکسان باشند و هم توان حروف.</p>
+                                <p style="line-height: 1.8;">فقط و فقط جملات متشابه را می‌توانیم با هم جمع یا تفریق کنیم (ضریب‌های عددی جمع/تفریق می‌شوند و قسمت حروفی ثابت می‌ماند).</p>
+                                <div class="example-box" style="background: #e8f8f0; padding: 15px; border-radius: 8px; border-right: 4px solid #43e97b; margin: 15px 0;">
+                                    <strong>مثال:</strong> $۵x^2y - ۳xy + ۲x^2y + ۷xy$<br>
+                                    در اینجا $۵x^2y$ و $۲x^2y$ متشابه‌اند $\rightarrow$ می‌شوند $۷x^2y$<br>
+                                    همچنین $-۳xy$ و $+۷xy$ متشابه‌اند $\rightarrow$ می‌شوند $+۴xy$<br>
+                                    حاصل نهایی: $۷x^2y + ۴xy$ (دیگر ساده نمی‌شود چون حروف متفاوتند).
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #43e97b; border-bottom: 2px solid #43e97b; padding-bottom: 10px;">۲. فاکتورگیری (تجزیه)</h4>
+                                <p style="line-height: 1.8;">فاکتورگیری یعنی تبدیل یک جمع یا تفریق به یک <strong>ضرب</strong>. این کار دقیقاً برعکس عمل پخش کردن یک عدد در پرانتز است.</p>
+                                <p style="line-height: 1.8;"><strong>مراحل فاکتورگیری:</strong></p>
+                                <ol style="line-height: 2;">
+                                    <li>بین ضریب‌های عددی، بزرگترین مقسوم‌علیه مشترک (ب.م.م) را پیدا می‌کنیم.</li>
+                                    <li>بین حروف مشترک، حروفی که در همه جملات وجود دارند را با <strong>کمترین توان</strong> انتخاب می‌کنیم.</li>
+                                    <li>این بخش مشترک (عامل فاکتور) را بیرون پرانتز می‌نویسیم.</li>
+                                    <li>تک‌تک جملات اولیه را بر عامل فاکتور تقسیم کرده و جواب‌ها را داخل پرانتز می‌نویسیم.</li>
+                                </ol>
+                                <div class="example-box" style="background: #e8f8f0; padding: 15px; border-radius: 8px; border-right: 4px solid #43e97b; margin: 15px 0;">
+                                    <strong>مثال کامل فاکتورگیری:</strong> $۱۲x^3y^2 - ۱۸x^2y^3$<br>
+                                    ب.م.م اعداد ۱۲ و ۱۸ برابر <strong>۶</strong> است.<br>
+                                    کمترین توان برای $x$ برابر $x^2$ و برای $y$ برابر $y^2$ است.<br>
+                                    پس عامل مشترک ما $۶x^2y^2$ است. آن را بیرون پرانتز می‌نویسیم:<br>
+                                    $۶x^2y^2 (۲x - ۳y)$
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #43e97b; border-bottom: 2px solid #43e97b; padding-bottom: 10px;">۳. حل معادله درجه اول</h4>
+                                <p style="line-height: 1.8;">حل معادله بر اساس «اصل تساوی» استوار است: اگر به دو طرف یک تساوی مقدار برابری اضافه/کم کنیم یا دو طرف را در عدد برابری ضرب/تقسیم کنیم، تساوی به هم نمی‌خورد.</p>
+                                <p style="line-height: 1.8;"><strong>تکنیک سریع حل:</strong> جملات دارای مجهول را به یک طرف مساوی و اعداد ثابت را به طرف دیگر می‌بریم. <strong>قانون طلایی: هر عبارتی که از روی علامت مساوی می‌پرد، علامتش قرینه می‌شود (مثبت به منفی و بالعکس).</strong></p>
+                                <div class="formula-box" style="background: #efffef; padding: 15px; border-radius: 8px; border-right: 4px solid #43e97b; margin: 15px 0;">
+                                    <strong>معادلات کسری:</strong><br>
+                                    اگر معادله شامل کسر بود، قبل از هر کاری، ک.م.م مخرج‌ها را پیدا کنید و <strong>تمام جملات دو طرف معادله</strong> را در آن ک.م.م ضرب کنید تا کسرها از بین بروند و معادله ساده شود.
+                                </div>
+                                <div class="example-box" style="background: #e8f8f0; padding: 15px; border-radius: 8px; border-right: 4px solid #43e97b; margin: 15px 0;">
+                                    <strong>مثال:</strong> $۵x - ۷ = ۳x + ۵$<br>
+                                    ۳x به سمت چپ و ۷- به سمت راست می‌روند (تغییر علامت می‌دهند):<br>
+                                    $۵x - ۳x = ۵ + ۷$<br>
+                                    $۲x = ۱۲$<br>
+                                    مرحله آخر (تقسیم بر ضریب مجهول): $x = \frac{۱۲}{۲} = ۶$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۵: بردار -->
+                        <div class="lesson-content" id="lesson-vectors" style="display: none;">
+                            <h3><i class="fas fa-arrows-alt"></i> فصل پنجم: بردار و مختصات</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fa709a; border-bottom: 2px solid #fa709a; padding-bottom: 10px;">۱. مفهوم بردار و نحوه خواندن مختصات</h4>
+                                <p style="line-height: 1.8;">بردار پاره‌خطی است که اندازه (طول) و جهت دارد. هر بردار در صفحه مختصات (کارتزین) دارای یک نقطه ابتدا و یک نقطه انتها است.</p>
+                                <div class="formula-box" style="background: #fff0f7; padding: 15px; border-radius: 8px; border-right: 4px solid #fa709a; margin: 15px 0;">
+                                    <strong>چگونه مختصات یک بردار رسم‌شده را بنویسیم؟</strong><br>
+                                    خودکار را روی <strong>ابتدای بردار</strong> بگذارید. <br>
+                                    ۱. ابتدا حرکت <strong>افقی</strong> (راست و چپ) کنید تا زیر یا بالای نوک پیکان برسید. حرکت به راست عدد مثبت و به چپ عدد منفی است. این می‌شود عدد بالایی مختصات ($\Delta x$).<br>
+                                    ۲. سپس حرکت <strong>عمودی</strong> (بالا و پایین) کنید تا دقیقاً به نوک پیکان برسید. حرکت به بالا مثبت و به پایین منفی است. این می‌شود عدد پایینی مختصات ($\Delta y$).
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fa709a; border-bottom: 2px solid #fa709a; padding-bottom: 10px;">۲. جمع بردارها (برآیند)</h4>
+                                <p style="line-height: 1.8;">برای پیدا کردن حاصل‌جمع دو بردار در صفحه رسم، دو روش داریم:</p>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>روش متوالی (مثلثی):</strong> بردار دوم را طوری رسم می‌کنیم که ابتدایش به انتهای بردار اول بچسبد (مثل مسیر حرکت). بردار حاصل‌جمع (برآیند)، برداری است که مبدأ حرکت را مستقیماً به مقصد نهایی وصل می‌کند.</li>
+                                    <li><strong>روش متوازی‌الاضلاع:</strong> دو بردار را از یک مبدأ مشترک رسم می‌کنیم. سپس از انتهای هرکدام، خطی موازی دیگری می‌کشیم تا یک متوازی‌الاضلاع ساخته شود. قطر این شکل که از مبدأ شروع می‌شود، بردار حاصل‌جمع است.</li>
+                                </ul>
+                                <p style="line-height: 1.8;"><strong>جمع جبری:</strong> در مختصات، کافیست طول‌ها (اعداد بالایی) را با هم و عرض‌ها (اعداد پایینی) را با هم جمع کنیم.</p>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fa709a; border-bottom: 2px solid #fa709a; padding-bottom: 10px;">۳. ضرب عدد در بردار و بردارهای واحد</h4>
+                                <p style="line-height: 1.8;">هرگاه عددی در یک بردار ضرب شود، هم در طول و هم در عرض آن ضرب می‌شود.</p>
+                                <ul style="line-height: 2;">
+                                    <li>اگر عدد مثبت باشد: اندازه بردار تغییر می‌کند اما هم‌جهت با بردار اصلی می‌ماند.</li>
+                                    <li>اگر عدد منفی باشد: علاوه بر تغییر اندازه، جهت بردار کاملاً <strong>قرینه</strong> (برعکس) می‌شود.</li>
+                                </ul>
+                                <div class="example-box" style="background: #fff0f5; padding: 15px; border-radius: 8px; border-right: 4px solid #fa709a; margin: 15px 0;">
+                                    <strong>بردارهای واحد مختصات ($\vec{i}$ و $\vec{j}$):</strong><br>
+                                    بردار $\vec{i} = \begin{bmatrix} ۱ \\ ۰ \end{bmatrix}$ (یک واحد به راست)<br>
+                                    بردار $\vec{j} = \begin{bmatrix} ۰ \\ ۱ \end{bmatrix}$ (یک واحد به بالا)<br>
+                                    هر برداری را می‌توان بر حسب این دو نوشت. مثلاً بردار $\vec{v} = \begin{bmatrix} ۵ \\ -۳ \end{bmatrix}$ را می‌توان به صورت $\vec{v} = ۵\vec{i} - ۳\vec{j}$ نوشت.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۶: مثلث -->
+                        <div class="lesson-content" id="lesson-triangle" style="display: none;">
+                            <h3><i class="fas fa-play"></i> فصل ششم: مثلث و هم‌نهشتی</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #30cfd0; border-bottom: 2px solid #30cfd0; padding-bottom: 10px;">۱. هم‌نهشتی مثلث‌ها (Congruence)</h4>
+                                <p style="line-height: 1.8;">دو مثلث زمانی هم‌نهشت هستند که بتوان آن‌ها را کاملاً روی هم منطبق کرد. در این حالت تمام اضلاع و زوایای متناظرشان مساوی است. برای اثبات اینکه دو مثلث هم‌نهشت‌اند، نیازی نیست هر ۶ جزء را بررسی کنیم، بلکه یافتن ۳ شرط کافیست:</p>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>(ض ض ض):</strong> هر سه ضلع یک مثلث با سه ضلع مثلث دیگر برابر باشند.</li>
+                                    <li><strong>(ض ز ض):</strong> دو ضلع و زاویه <strong>بین آن‌ها</strong> در دو مثلث برابر باشند. (توجه: زاویه حتماً باید بین دو ضلع معلوم باشد).</li>
+                                    <li><strong>(ز ض ز):</strong> دو زاویه و ضلع <strong>بین آن‌ها</strong> در دو مثلث برابر باشند.</li>
+                                </ul>
+                                <p style="line-height: 1.8;"><strong>دو حالت ویژه برای مثلث‌های قائم‌الزاویه:</strong> چون داشتن زاویه ۹۰ درجه یک شرط آماده است، فقط به دو شرط دیگر نیاز داریم:</p>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>وتر و یک زاویه حاده (و ز)</strong></li>
+                                    <li><strong>وتر و یک ضلع زاویه قائمه (و ض)</strong></li>
+                                </ul>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #30cfd0; border-bottom: 2px solid #30cfd0; padding-bottom: 10px;">۲. قضیه فیثاغورس</h4>
+                                <p style="line-height: 1.8;">قضیه فیثاغورس معروف‌ترین قضیه هندسه است که <strong>فقط در مثلث‌های قائم‌الزاویه</strong> کاربرد دارد. این قضیه رابطه بین اضلاع را بیان می‌کند.</p>
+                                <div class="formula-box" style="background: #e0fffe; padding: 15px; border-radius: 8px; border-right: 4px solid #30cfd0; margin: 15px 0;">
+                                    مساحت مربعی که روی وتر ساخته می‌شود، برابر است با مجموع مساحت‌های دو مربعی که روی اضلاع زاویه قائمه ساخته می‌شوند.<br>
+                                    فرمول جبری: <strong>$a^2 + b^2 = c^2$</strong> <br>
+                                    *در این فرمول $c$ حتماً باید <strong>وتر</strong> (بلندترین ضلع، روبروی زاویه ۹۰) باشد.*
+                                </div>
+                                <div class="example-box" style="background: #c8fffe; padding: 15px; border-radius: 8px; border-right: 4px solid #30cfd0; margin: 15px 0;">
+                                    <strong>چگونه اضلاع را پیدا کنیم؟</strong><br>
+                                    - اگر <strong>وتر</strong> را می‌خواستیم: مجذور دو ضلع دیگر را جمع کرده و در آخر جذر می‌گیریم. $c = \sqrt{a^2 + b^2}$<br>
+                                    - اگر <strong>یکی از اضلاع قائمه</strong> را می‌خواستیم: مجذور وتر را منهای مجذور ضلع معلوم می‌کنیم و جذر می‌گیریم. $a = \sqrt{c^2 - b^2}$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۷: توان و جذر -->
+                        <div class="lesson-content" id="lesson-power" style="display: none;">
+                            <h3><i class="fas fa-superscript"></i> فصل هفتم: توان و جذر</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #38f9d7; border-bottom: 2px solid #38f9d7; padding-bottom: 10px;">۱. قوانین طلایی توان</h4>
+                                <ul style="line-height: 2.2;">
+                                    <li>هر عدد (به جز صفر) به توان صفر، برابر با <strong>۱</strong> می‌شود. ($۵^۰ = ۱$)</li>
+                                    <li>عدد منفی اگر به توان <strong>زوج</strong> برسد، نتیجه <strong>مثبت</strong> می‌شود. $(-۲)^۴ = +۱۶$</li>
+                                    <li>عدد منفی اگر به توان <strong>فرد</strong> برسد، نتیجه <strong>منفی</strong> می‌ماند. $(-۲)^۳ = -۸$</li>
+                                    <li><strong>تفاوت مهم:</strong> $(-۳)^۲$ با $-۳^۲$ فرق دارد! در اولی منفی هم به توان می‌رسد (می‌شود ۹). در دومی توان فقط روی ۳ است (می‌شود ۹-).</li>
+                                </ul>
+                                <div class="formula-box" style="background: #e8fffc; padding: 15px; border-radius: 8px; border-right: 4px solid #38f9d7; margin: 15px 0;">
+                                    <strong>اعمال روی توان‌ها:</strong><br>
+                                    ۱. <strong>ضرب با پایه‌های مساوی:</strong> پایه‌ها را می‌نویسیم و توان‌ها را جمع می‌کنیم. $a^m \times a^n = a^{m+n}$<br>
+                                    ۲. <strong>ضرب با توان‌های مساوی:</strong> پایه‌ها را در هم ضرب کرده و یکی از توان‌ها را می‌نویسیم. $a^m \times b^m = (a \times b)^m$<br>
+                                    ۳. <strong>تقسیم با پایه‌های مساوی:</strong> پایه‌ها را نوشته و توان‌ها را کم می‌کنیم. $a^m \div a^n = a^{m-n}$<br>
+                                    ۴. <strong>تقسیم با توان‌های مساوی:</strong> پایه‌ها را تقسیم کرده و توان را می‌نویسیم.
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #38f9d7; border-bottom: 2px solid #38f9d7; padding-bottom: 10px;">۲. جذر و جذر تقریبی</h4>
+                                <p style="line-height: 1.8;">رادیکال یا جذر (ریشه دوم)، عمل معکوس به توان دو رساندن است. عددهای منفی ریشه دوم ندارند.</p>
+                                <p style="line-height: 1.8;"><strong>جذر تقریبی:</strong> برای پیدا کردن جذر عددی که مربع کامل نیست (مثل $\sqrt{۴۰}$)، بررسی می‌کنیم که این عدد بین کدام دو مربع کامل است. ۴۰ بین ۳۶ (که جذرش ۶ است) و ۴۹ (که جذرش ۷ است) قرار دارد. پس جذر ۴۰ عددی اعشاری بین ۶ و ۷ است. چون ۴۰ به ۳۶ نزدیک‌تر است، جذر آن حدود ۶/۳ یا ۶/۴ است که با جدول امتحان می‌کنیم.</p>
+                            </div>
+
+                            <div class="lesson-section" style="background: #fff8e1; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 10px;">⭐ هشدار جدی در رادیکال‌ها</h4>
+                                <p style="line-height: 1.8;">رادیکال‌ها در ضرب و تقسیم با هم یکی می‌شوند: $\sqrt{۲} \times \sqrt{۳} = \sqrt{۶}$</p>
+                                <div class="example-box" style="background: #ffecd2; padding: 15px; border-radius: 8px; border-right: 4px solid #f59e0b; margin: 15px 0;">
+                                    <strong>اما در جمع و تفریق هرگز!</strong><br>
+                                    دانش‌آموزان اغلب فکر می‌کنند $\sqrt{۹ + ۱۶} = \sqrt{۹} + \sqrt{۱۶} = ۳ + ۴ = ۷$. <strong>این کاملاً غلط است!</strong><br>
+                                    روش درست: ابتدا داخل رادیکال را محاسبه کنید: $\sqrt{۹+۱۶} = \sqrt{۲۵} = ۵$.<br>
+                                    پس به یاد داشته باشید: $\sqrt{a+b} \neq \sqrt{a} + \sqrt{b}$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۸: آمار و احتمال -->
+                        <div class="lesson-content" id="lesson-statistics" style="display: none;">
+                            <h3><i class="fas fa-chart-bar"></i> فصل هشتم: آمار و احتمال</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #ff9a9e; border-bottom: 2px solid #ff9a9e; padding-bottom: 10px;">۱. دسته‌بندی داده‌ها</h4>
+                                <p style="line-height: 1.8;">هنگامی که تعداد داده‌ها زیاد و پراکنده است، بررسی تک‌تک آن‌ها سخت است. پس آن‌ها را در دسته‌های مساوی (مثلاً دسته‌های ۵ تایی) طبقه‌بندی می‌کنیم.</p>
+                                <div class="formula-box" style="background: #fff0f5; padding: 15px; border-radius: 8px; border-right: 4px solid #ff9a9e; margin: 15px 0;">
+                                    <strong>دامنه تغییرات</strong> = بیشترین داده - کمترین داده<br>
+                                    <strong>طول دسته</strong> = دامنه تغییرات $\div$ تعداد دسته‌های دلخواه<br>
+                                    <strong>مرکز دسته</strong> = (حد پایین دسته + حد بالای دسته) $\div$ ۲
+                                </div>
+                                <p style="line-height: 1.8;"><strong>میانگین داده‌های دسته‌بندی شده:</strong> چون مقدار دقیق تک‌تک داده‌ها را در دسته‌ها نمی‌دانیم، <strong>مرکز هر دسته</strong> را نماینده آن دسته فرض می‌کنیم. مرکز هر دسته را در فراوانی آن ضرب کرده، همه را جمع می‌کنیم و بر جمع کل فراوانی‌ها (تعداد کل داده‌ها) تقسیم می‌کنیم.</p>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #ff9a9e; border-bottom: 2px solid #ff9a9e; padding-bottom: 10px;">۲. کاربرد انواع نمودار</h4>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>نمودار میله‌ای (ستونی):</strong> بهترین انتخاب برای مقایسه تعداد، مقدار یا فراوانی بین دسته‌های مجزا (مثلاً مقایسه نمره درس‌های مختلف).</li>
+                                    <li><strong>نمودار خطی:</strong> بهترین انتخاب برای نشان دادن روند <strong>تغییرات در طول زمان</strong> (مثلاً تغییرات دمای یک شهر در روزهای هفته یا رشد قد یک فرد).</li>
+                                    <li><strong>نمودار دایره‌ای:</strong> بهترین انتخاب برای نشان دادن <strong>درصد، سهم و نسبت هر بخش به کل</strong> (مثلاً درصد آرای یک انتخابات یا سهم هزینه‌های یک خانواده). زاویه هر قطاع در دایره متناسب با درصد آن است.</li>
+                                </ul>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #ff9a9e; border-bottom: 2px solid #ff9a9e; padding-bottom: 10px;">۳. احتمال</h4>
+                                <p style="line-height: 1.8;">فضای نمونه‌ای یعنی تمام حالت‌های ممکنی که می‌تواند رخ دهد (مثلاً در پرتاب تاس فضای نمونه {۱،۲،۳،۴،۵،۶} است). پیشامد یعنی حالتی که ما دنبال آن هستیم (مثلاً زوج آمدن تاس).</p>
+                                <div class="formula-box" style="background: #fff0f5; padding: 15px; border-radius: 8px; border-right: 4px solid #ff9a9e; margin: 15px 0;">
+                                    <strong>احتمال رخ دادن یک پیشامد = $\frac{\text{تعداد حالت‌های مطلوب}}{\text{تعداد کل حالت‌های ممکن}}$</strong>
+                                </div>
+                                <div class="example-box" style="background: #ffe8f0; padding: 15px; border-radius: 8px; border-right: 4px solid #ff9a9e; margin: 15px 0;">
+                                    <strong>مثال:</strong> یک سکه و یک تاس را با هم پرتاب می‌کنیم. احتمال اینکه سکه «رو» و تاس «بزرگتر از ۴» بیاید چقدر است؟<br>
+                                    کل حالت‌ها: سکه ۲ حالت و تاس ۶ حالت دارد، پس روی هم $۲ \times ۶ = ۱۲$ حالت دارند.<br>
+                                    حالت‌های مطلوب: (رو و ۵)، (رو و ۶) $\rightarrow$ ۲ حالت.<br>
+                                    احتمال = $\frac{۲}{۱۲} = \frac{۱}{۶}$
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- فصل ۹: دایره -->
+                        <div class="lesson-content" id="lesson-circle" style="display: none;">
+                            <h3><i class="fas fa-circle"></i> فصل نهم: خط و دایره</h3>
+                            <button onclick="hideLesson()" class="btn-secondary" style="float: left; margin-bottom: 15px;">
+                                <i class="fas fa-arrow-right"></i> بازگشت
+                            </button>
+                            <div style="clear: both;"></div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fcb69f; border-bottom: 2px solid #fcb69f; padding-bottom: 10px;">۱. وضعیت خط و دایره نسبت به هم</h4>
+                                <p style="line-height: 1.8;">فرض کنید دایره‌ای به شعاع $r$ داریم. فاصله مرکز دایره (O) تا یک خط را با $d$ نشان می‌دهیم. خط و دایره می‌توانند ۳ حالت داشته باشند:</p>
+                                <ul style="line-height: 2.2;">
+                                    <li><strong>متقاطع (متخاطع):</strong> خط از داخل دایره عبور می‌کند و آن را در ۲ نقطه قطع می‌کند. در این حالت فاصله خط تا مرکز از شعاع کمتر است. ($d < r$)</li>
+                                    <li><strong>مماس:</strong> خط دایره را فقط در ۱ نقطه لمس می‌کند. در این حالت فاصله خط تا مرکز دقیقاً برابر شعاع است. ($d = r$)</li>
+                                    <li><strong>بیرون دایره:</strong> خط از کنار دایره رد می‌شود و هیچ نقطه مشترکی با هم ندارند. ($d > r$)</li>
+                                </ul>
+                                <div class="example-box" style="background: #fff5ee; padding: 15px; border-radius: 8px; border-right: 4px solid #fcb69f; margin: 15px 0;">
+                                    <strong>قضیه بسیار مهم خط مماس:</strong> خط مماس بر دایره، در نقطه تماس <strong>بر شعاع دایره عمود است.</strong><br>
+                                    این نکته باعث ایجاد یک زاویه ۹۰ درجه می‌شود که راه را برای استفاده از قضیه فیثاغورس در مسائل دایره باز می‌کند!
+                                </div>
+                            </div>
+
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fcb69f; border-bottom: 2px solid #fcb69f; padding-bottom: 10px;">۲. زاویه مرکزی و زاویه محاطی</h4>
+                                <p style="line-height: 1.8;"><strong>زاویه مرکزی:</strong> زاویه‌ای که رأس آن دقیقاً روی مرکز دایره (نقطه O) قرار دارد. <br>
+                                <em>قانون:</em> اندازه زاویه مرکزی <strong>برابر</strong> با اندازه کمان روبروی آن است.</p>
+                                <p style="line-height: 1.8;"><strong>زاویه محاطی:</strong> زاویه‌ای که رأس آن روی محیط (لبه‌ی) دایره قرار دارد و دو ضلع آن، دو وتر از دایره هستند.<br>
+                                <em>قانون:</em> اندازه زاویه محاطی برابر با <strong>نصف</strong> اندازه کمان روبروی آن است.</p>
+                                <div class="formula-box" style="background: #fff5ee; padding: 15px; border-radius: 8px; border-right: 4px solid #fcb69f; margin: 15px 0;">
+                                    <strong>قضیه تالس (نتیجه مهم زاویه محاطی):</strong> هر زاویه محاطی که روبروی قطر دایره قرار بگیرد (یعنی کمان روبروی آن کمان ۱۸۰ درجه نیم‌دایره باشد)، همیشه <strong>۹۰ درجه (قائمه)</strong> است.
+                                </div>
+                            </div>
+                            
+                            <div class="lesson-section" style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <h4 style="color: #fcb69f; border-bottom: 2px solid #fcb69f; padding-bottom: 10px;">۳. رابطه وترها، کمان‌ها و مرکز دایره</h4>
+                                <ul style="line-height: 2.2;">
+                                    <li>اگر دو وتر در یک دایره با هم برابر باشند، کمان‌های روبروی آن‌ها نیز مساوی هستند.</li>
+                                    <li>وترهای مساوی در یک دایره، فاصله‌شان از مرکز دایره با هم برابر است.</li>
+                                    <li>اگر از مرکز دایره خطی بر یک وتر عمود کنیم، آن خط، وتر و همچنین کمان روبروی وتر را <strong>نصف</strong> می‌کند.</li>
+                                    <li>تمام زاویه‌های محاطی که روبروی یک کمان مشخص رسم شوند، با یکدیگر برابرند.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
-
-                <!-- فصل ۲ -->
-                <div class="lesson-content" id="lesson-primes" style="display:none;">
-                    <h3><i class="fas fa-hashtag"></i> فصل دوم: عددهای اول</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. یادآوری عددهای اول</h4>
-                        <p>عدد طبیعی بزرگ‌تر از ۱ که فقط دو شمارندهٔ طبیعی، یعنی ۱ و خودش، داشته باشد، <strong>عدد اول</strong> نام دارد.</p>
-                        <div class="example-box">
-                            ۲، ۳، ۵، ۷، ۱۱ و ۱۳ عددهای اول هستند.
-                        </div>
-                        <p>عدد ۱ اول نیست؛ زیرا فقط یک شمارنده دارد.</p>
-                        <p><strong>عدد ۲</strong> تنها عدد اول زوج است.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. تشخیص عددهای اول</h4>
-                        <p>برای بررسی اول بودن یک عدد، کافی است بخش‌پذیری آن را بر عددهای اول کوچک‌تر بررسی کنیم؛ در عمل، تا جایی بررسی می‌کنیم که حاصل ضرب دو عدد بررسی‌شده از عدد موردنظر بزرگ‌تر شود.</p>
-                        <div class="example-box">
-                            <strong>مثال:</strong> برای بررسی اول بودن ۲۹، بخش‌پذیری آن را بر ۲، ۳ و ۵ بررسی می‌کنیم.<br>
-                            ۲۹ بر هیچ‌کدام بخش‌پذیر نیست؛ بنابراین ۲۹ عدد اول است.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. روش غربال</h4>
-                        <p>یکی از روش‌های مناسب برای پیدا کردن عددهای اول، <strong>روش غربال</strong> است.</p>
-                        <ol>
-                            <li>عددهای موردنظر، مثلاً ۲ تا ۵۰، را می‌نویسیم.</li>
-                            <li>عدد ۲ را نگه می‌داریم و مضرب‌های بزرگ‌تر آن را حذف می‌کنیم.</li>
-                            <li>به اولین عدد حذف‌نشدهٔ بعدی می‌رویم و مضرب‌های آن را حذف می‌کنیم.</li>
-                            <li>این کار را ادامه می‌دهیم تا عددهای اول باقی بمانند.</li>
-                        </ol>
-                        <div class="example-box">
-                            عددهای اول کوچک‌تر از ۳۰ عبارت‌اند از:<br>
-                            ۲، ۳، ۵، ۷، ۱۱، ۱۳، ۱۷، ۱۹، ۲۳، ۲۹
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>عدد ۱ عدد اول نیست.</li>
-                            <li>عدد ۲ تنها عدد اول زوج است.</li>
-                            <li>هر عدد اول بزرگ‌تر از ۲ فرد است.</li>
-                            <li>برای تشخیص اول بودن، لازم نیست همهٔ عددهای کوچک‌تر از آن را بررسی کنیم.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۳ -->
-                <div class="lesson-content" id="lesson-polygons" style="display:none;">
-                    <h3><i class="fas fa-shapes"></i> فصل سوم: چندضلعی‌ها</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. چندضلعی‌ها و تقارن</h4>
-                        <p>چندضلعی یک شکل بسته است که از تعدادی پاره‌خط تشکیل شده است. پاره‌خط‌های تشکیل‌دهندهٔ آن <strong>ضلع</strong> و محل برخورد دو ضلع <strong>رأس</strong> نام دارد.</p>
-                        <p>مثلث، چهارضلعی، پنج‌ضلعی و شش‌ضلعی نمونه‌هایی از چندضلعی‌ها هستند.</p>
-                        <p><strong>تقارن محوری:</strong> اگر شکلی را نسبت به یک خط قرینه کنیم و شکل بر خودش منطبق شود، آن خط محور تقارن شکل است.</p>
-                        <p><strong>تقارن مرکزی:</strong> در تقارن مرکزی، هر نقطه از شکل به نقطه‌ای در طرف مقابل و با فاصلهٔ برابر از مرکز تقارن منتقل می‌شود.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. توازی و تعامد</h4>
-                        <p>دو خط <strong>موازی</strong> در یک صفحه هرگز یکدیگر را قطع نمی‌کنند.</p>
-                        <p>دو خط <strong>عمود</strong> بر یکدیگر، زاویهٔ قائمه یعنی زاویهٔ ۹۰ درجه می‌سازند.</p>
-                        <div class="example-box">
-                            اگر دو خط با یک خط سوم قطع شوند، از روابط بین زاویه‌ها می‌توان برای تشخیص موازی بودن دو خط استفاده کرد.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. چهارضلعی‌ها</h4>
-                        <p>چهارضلعی شکلی با چهار ضلع و چهار زاویه است.</p>
-                        <ul>
-                            <li><strong>متوازی‌الاضلاع:</strong> هر دو ضلع مقابل با هم موازی‌اند.</li>
-                            <li><strong>مستطیل:</strong> متوازی‌الاضلاعی است که چهار زاویهٔ قائمه دارد.</li>
-                            <li><strong>لوزی:</strong> متوازی‌الاضلاعی است که چهار ضلع آن برابرند.</li>
-                            <li><strong>مربع:</strong> هم مستطیل و هم لوزی است؛ چهار ضلع برابر و چهار زاویهٔ قائمه دارد.</li>
-                            <li><strong>ذوزنقه:</strong> چهارضلعی‌ای است که یک جفت ضلع موازی دارد.</li>
-                        </ul>
-                        <p>در متوازی‌الاضلاع، ضلع‌های مقابل برابر و زاویه‌های مقابل برابرند و قطرها یکدیگر را نصف می‌کنند.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. زاویه‌های داخلی</h4>
-                        <p>زاویهٔ داخلی، زاویه‌ای است که در داخل چندضلعی و بین دو ضلع مجاور آن قرار دارد.</p>
-                        <div class="formula-box">
-                            مجموع زاویه‌های داخلی n-ضلعی = (n − ۲) × ۱۸۰°
-                        </div>
-                        <div class="example-box">
-                            مجموع زاویه‌های داخلی پنج‌ضلعی:<br>
-                            (۵ − ۲) × ۱۸۰ = ۵۴۰°
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۵. زاویه‌های خارجی</h4>
-                        <p>با امتداد دادن یکی از ضلع‌های چندضلعی، زاویه‌ای در خارج شکل ایجاد می‌شود که می‌توان آن را زاویهٔ خارجی در نظر گرفت.</p>
-                        <div class="formula-box">
-                            مجموع زاویه‌های خارجی یک چندضلعی محدب = ۳۶۰°
-                        </div>
-                        <p>در چندضلعی منتظم، زاویه‌های داخلی و خارجی با یکدیگر رابطهٔ مشخصی دارند و همهٔ زاویه‌های متناظر با هم برابرند.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>مربع هم‌زمان یک مستطیل، لوزی و متوازی‌الاضلاع است.</li>
-                            <li>هر مستطیل متوازی‌الاضلاع است، اما هر متوازی‌الاضلاع مستطیل نیست.</li>
-                            <li>هر لوزی متوازی‌الاضلاع است، اما هر متوازی‌الاضلاع لوزی نیست.</li>
-                            <li>مجموع زاویه‌های خارجی یک چندضلعی محدب ۳۶۰ درجه است.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۴ -->
-                <div class="lesson-content" id="lesson-algebra" style="display:none;">
-                    <h3><i class="fas fa-square-root-alt"></i> فصل چهارم: جبر و معادله</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. ساده کردن عبارت‌های جبری</h4>
-                        <p>در عبارت جبری، عددها و حرف‌ها برای نمایش یک مقدار یا رابطهٔ ریاضی به کار می‌روند.</p>
-                        <p>جمله‌های هم‌نوع، قسمت حرفی یکسان دارند و فقط ضریب آن‌ها می‌تواند متفاوت باشد.</p>
-                        <div class="example-box">
-                            ۳x و −۵x هم‌نوع‌اند، بنابراین:<br>
-                            ۳x − ۵x = −۲x
-                        </div>
-                        <p>اما ۳x و ۳x² هم‌نوع نیستند.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. پیدا کردن مقدار یک عبارت جبری</h4>
-                        <p>برای پیدا کردن مقدار یک عبارت جبری، مقدار داده‌شدهٔ متغیر را به جای آن قرار می‌دهیم و عملیات را انجام می‌دهیم.</p>
-                        <div class="example-box">
-                            اگر x = ۲ باشد:<br>
-                            ۳x + ۵ = ۳(۲) + ۵ = ۱۱
-                        </div>
-                        <p>در عبارت‌های دارای پرانتز، ابتدا مقدار داخل پرانتز و سپس سایر عملیات را با رعایت ترتیب انجام می‌دهیم.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. تجزیهٔ عبارت‌های جبری</h4>
-                        <p>تجزیه یعنی یک عبارت را به صورت حاصل‌ضرب چند عبارت ساده‌تر بنویسیم.</p>
-                        <p>یکی از روش‌های مهم، خارج کردن <strong>عامل مشترک</strong> است.</p>
-                        <div class="example-box">
-                            ۶x + ۹ = ۳(۲x + ۳)<br><br>
-                            ۴x² + ۸x = ۴x(x + ۲)
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. معادله</h4>
-                        <p>معادله یک تساوی است که در آن یک یا چند مجهول وجود دارد. هدف ما پیدا کردن مقداری است که با قرار دادن آن به جای مجهول، تساوی درست شود.</p>
-                        <p><strong>اصل تساوی:</strong> اگر به دو طرف یک تساوی، مقدارهای مساوی اضافه یا کم کنیم یا هر دو طرف را در یک عدد یکسانِ ناصفر ضرب یا تقسیم کنیم، تساوی حفظ می‌شود.</p>
-                        <div class="example-box">
-                            <strong>مثال:</strong><br>
-                            ۲x + ۳ = ۱۱<br>
-                            ۲x = ۸<br>
-                            x = ۴
-                        </div>
-                        <p>در پایان بهتر است جواب را در معادلهٔ اصلی قرار دهیم و درستی آن را بررسی کنیم.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>فقط جمله‌های هم‌نوع را می‌توان با هم جمع یا تفریق کرد.</li>
-                            <li>برای محاسبهٔ مقدار عبارت، مقدار متغیر را جایگزین می‌کنیم.</li>
-                            <li>در تجزیه، به دنبال عامل مشترک می‌گردیم.</li>
-                            <li>در حل معادله، هر عملی که روی یک طرف انجام می‌دهیم باید با دقت و به شکل معادل روی طرف دیگر نیز انجام شود.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۵ -->
-                <div class="lesson-content" id="lesson-vectors" style="display:none;">
-                    <h3><i class="fas fa-arrows-alt"></i> فصل پنجم: بردار و مختصات</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. جمع بردارها</h4>
-                        <p>پاره‌خط جهت‌دار، پاره‌خطی است که علاوه بر اندازه، جهت نیز دارد. پاره‌خط جهت‌دار را می‌توان با یک پیکان نشان داد.</p>
-                        <p>برای جمع دو بردار می‌توان از روش <strong>سر به ته</strong> یا قانون متوازی‌الاضلاع استفاده کرد.</p>
-                        <div class="example-box">
-                            اگر ابتدا با یک بردار به اندازهٔ ۳ واحد به راست و سپس با بردار دیگری ۲ واحد به راست حرکت کنیم، بردار حاصل ۵ واحد به راست است.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. ضرب عدد در بردار</h4>
-                        <p>ضرب یک بردار در یک عدد باعث تغییر اندازهٔ آن می‌شود. اگر عدد مثبت باشد، جهت بردار حفظ می‌شود و اگر عدد منفی باشد، جهت نیز برعکس می‌شود.</p>
-                        <div class="example-box">
-                            اگر بردار v سه واحد به راست باشد، ۲v شش واحد به راست و −v سه واحد به چپ خواهد بود.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. بردارهای واحد مختصات</h4>
-                        <p>در دستگاه مختصات، دو بردار واحد را می‌توان در جهت محورهای افقی و عمودی در نظر گرفت. با کمک این دو جهت، بردارهای دیگر را می‌توان به صورت ترکیبی از حرکت افقی و عمودی نمایش داد.</p>
-                        <div class="formula-box">
-                            بردار جابه‌جایی = حرکت افقی + حرکت عمودی
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. مختصات و تبدیلات هندسی</h4>
-                        <p>هر نقطه در صفحهٔ مختصات با یک زوج مرتب مانند <strong>(x , y)</strong> مشخص می‌شود.</p>
-                        <p>عدد اول، مختصات افقی و عدد دوم، مختصات عمودی نقطه را نشان می‌دهد.</p>
-                        <div class="example-box">
-                            نقطهٔ A(۳،۲) یعنی از مبدأ، ۳ واحد در جهت افقی و سپس ۲ واحد در جهت عمودی حرکت می‌کنیم.
-                        </div>
-                        <p>در انتقال یک شکل، همهٔ نقاط شکل به یک اندازه و در یک جهت جابه‌جا می‌شوند و شکل اصلی حفظ می‌شود.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>بردار علاوه بر اندازه، جهت نیز دارد.</li>
-                            <li>در جمع بردارها، جهت و اندازهٔ حرکت‌ها باید مورد توجه قرار گیرد.</li>
-                            <li>ضرب بردار در عدد منفی، جهت بردار را نیز تغییر می‌دهد.</li>
-                            <li>در زوج مرتب (x,y)، ابتدا x و سپس y نوشته می‌شود.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۶ -->
-                <div class="lesson-content" id="lesson-triangle" style="display:none;">
-                    <h3><i class="fas fa-play"></i> فصل ششم: مثلث</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. یادآوری هم‌نهشتی مثلث‌ها</h4>
-                        <p>دو مثلث <strong>هم‌نهشت</strong> هستند اگر بتوان یکی را با جابه‌جایی، دوران یا تقارن روی دیگری منطبق کرد؛ در این صورت ضلع‌ها و زاویه‌های متناظر آن‌ها برابرند.</p>
-                        <p>برای تشخیص هم‌نهشتی، از حالت‌های مختلفی مانند برابری سه ضلع متناظر یا برابری دو ضلع و زاویهٔ بین آن‌ها استفاده می‌شود.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. رسم و هم‌نهشتی مثلث قائم‌الزاویه</h4>
-                        <p>مثلث قائم‌الزاویه مثلثی است که یکی از زاویه‌های آن ۹۰ درجه باشد.</p>
-                        <p>در بررسی هم‌نهشتی مثلث‌های قائم‌الزاویه، داشتن اطلاعات کافی دربارهٔ ضلع‌های متناظر و زاویهٔ قائمه می‌تواند هم‌نهشتی را مشخص کند.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. زاویهٔ خارجی مثلث</h4>
-                        <p>اگر یکی از ضلع‌های مثلث را امتداد دهیم، زاویه‌ای در بیرون مثلث ایجاد می‌شود که <strong>زاویهٔ خارجی</strong> نام دارد.</p>
-                        <div class="formula-box">
-                            اندازهٔ زاویهٔ خارجی = مجموع دو زاویهٔ داخلی غیرمجاور
-                        </div>
-                        <div class="example-box">
-                            اگر دو زاویهٔ داخلی غیرمجاور ۵۰° و ۷۰° باشند، زاویهٔ خارجی برابر است با:<br>
-                            ۵۰° + ۷۰° = ۱۲۰°
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. رابطهٔ فیثاغورس</h4>
-                        <p>در هر مثلث قائم‌الزاویه، مربع طول وتر برابر با مجموع مربع طول دو ضلع قائم است.</p>
-                        <div class="formula-box">
-                            a² + b² = c²
-                        </div>
-                        <p>در این رابطه، <strong>c</strong> طول وتر، یعنی ضلع روبه‌روی زاویهٔ قائمه، است.</p>
-                        <div class="example-box">
-                            اگر دو ضلع قائم ۳ و ۴ باشند:<br>
-                            c² = ۳² + ۴² = ۹ + ۱۶ = ۲۵<br>
-                            پس c = ۵
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>در مثلث قائم‌الزاویه فقط یک زاویه ۹۰ درجه است.</li>
-                            <li>وتر همیشه روبه‌روی زاویهٔ قائمه قرار دارد.</li>
-                            <li>وتر بزرگ‌ترین ضلع مثلث قائم‌الزاویه است.</li>
-                            <li>رابطهٔ فیثاغورس فقط برای مثلث قائم‌الزاویه به کار می‌رود.</li>
-                            <li>مجموع زاویه‌های داخلی هر مثلث ۱۸۰ درجه است.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۷ -->
-                <div class="lesson-content" id="lesson-power" style="display:none;">
-                    <h3><i class="fas fa-superscript"></i> فصل هفتم: توان و جذر</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. توان</h4>
-                        <p>اگر عددی را چند بار در خودش ضرب کنیم، می‌توانیم از توان استفاده کنیم.</p>
-                        <div class="formula-box">
-                            aⁿ = a × a × ... × a
-                        </div>
-                        <p>در اینجا <strong>a</strong> پایه و <strong>n</strong> توان نام دارد.</p>
-                        <div class="example-box">
-                            ۲⁴ = ۲ × ۲ × ۲ × ۲ = ۱۶<br>
-                            (−۳)² = (−۳) × (−۳) = ۹
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. تقسیم اعداد توان‌دار</h4>
-                        <p>اگر پایه‌های دو عدد توان‌دار یکسان باشند، در تقسیم، توان‌ها را از یکدیگر کم می‌کنیم؛ البته در مواردی که این قانون تعریف شده باشد.</p>
-                        <div class="formula-box">
-                            aᵐ ÷ aⁿ = aᵐ⁻ⁿ
-                        </div>
-                        <div class="example-box">
-                            ۵⁶ ÷ ۵² = ۵⁴
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. جذر تقریبی</h4>
-                        <p>جذر دوم یک عدد نامنفی، عددی است که اگر در خودش ضرب شود، آن عدد به دست آید.</p>
-                        <div class="example-box">
-                            √۲۵ = ۵ زیرا ۵ × ۵ = ۲۵
-                        </div>
-                        <p>اگر عدد زیر رادیکال مربع کامل نباشد، می‌توان جذر آن را با کمک مربع‌های کامل نزدیک، به صورت تقریبی پیدا کرد.</p>
-                        <div class="example-box">
-                            چون ۲۵ &lt; ۳۰ &lt; ۳۶، بنابراین:<br>
-                            ۵ &lt; √۳۰ &lt; ۶
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. نمایش عددهای رادیکالی روی محور اعداد</h4>
-                        <p>با استفاده از رابطهٔ فیثاغورس می‌توان طول پاره‌خط‌هایی با اندازهٔ رادیکالی ساخت و سپس عدد رادیکالی را روی محور اعداد نمایش داد.</p>
-                        <div class="example-box">
-                            برای ساختن √۲، می‌توان از یک مثلث قائم‌الزاویه با دو ضلع قائم ۱ استفاده کرد؛ وتر مثلث برابر √۲ خواهد بود.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۵. خواص ضرب و تقسیم رادیکال‌ها</h4>
-                        <p>برای عددهای مناسب می‌توان از خواص زیر استفاده کرد:</p>
-                        <div class="formula-box">
-                            √a × √b = √(ab)<br>
-                            √a ÷ √b = √(a/b) &nbsp;&nbsp; (b ≠ ۰)
-                        </div>
-                        <div class="example-box">
-                            √۱۲ × √۳ = √۳۶ = ۶<br>
-                            √۱۸ ÷ √۲ = √۹ = ۳
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>توان نشان می‌دهد پایه چند بار در خودش ضرب شده است.</li>
-                            <li>در عبارت‌های توان‌دار، پرانتز اهمیت زیادی دارد؛ مثلاً (−۲)² = ۴ ولی −۲² = −۴.</li>
-                            <li>جذر اصلی عدد نامنفی است.</li>
-                            <li>برای تقریب جذر، مربع‌های کامل اطراف عدد را پیدا می‌کنیم.</li>
-                            <li>در ضرب و تقسیم رادیکال‌ها، شرایط تعریف عبارت‌ها را رعایت می‌کنیم.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۸ -->
-                <div class="lesson-content" id="lesson-statistics" style="display:none;">
-                    <h3><i class="fas fa-chart-bar"></i> فصل هشتم: آمار و احتمال</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. دسته‌بندی داده‌ها</h4>
-                        <p>داده‌ها اطلاعاتی هستند که برای بررسی یک موضوع جمع‌آوری می‌کنیم. داده‌ها را می‌توان در جدول مرتب کرد یا با نمودار نمایش داد.</p>
-                        <p>انتخاب روش مناسب برای نمایش داده‌ها به نوع داده و هدف بررسی بستگی دارد.</p>
-                        <div class="example-box">
-                            برای مقایسهٔ تعداد دانش‌آموزان چند کلاس، نمودار ستونی می‌تواند مناسب باشد.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. میانگین داده‌ها</h4>
-                        <p>برای به‌دست آوردن میانگین چند داده، مجموع داده‌ها را بر تعداد آن‌ها تقسیم می‌کنیم.</p>
-                        <div class="formula-box">
-                            میانگین = مجموع داده‌ها ÷ تعداد داده‌ها
-                        </div>
-                        <div class="example-box">
-                            داده‌ها: ۱۲، ۱۵، ۱۸<br>
-                            میانگین = (۱۲ + ۱۵ + ۱۸) ÷ ۳ = ۱۵
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. احتمال یا اندازه‌گیری شانس</h4>
-                        <p>احتمال، میزان امکان رخ دادن یک پیشامد را نشان می‌دهد.</p>
-                        <p>احتمال یک پیشامد همیشه بین صفر و یک است.</p>
-                        <div class="formula-box">
-                            ۰ ≤ احتمال پیشامد ≤ ۱
-                        </div>
-                        <p>اگر همهٔ حالت‌های ممکن شانس یکسانی داشته باشند، می‌توان احتمال را از رابطهٔ زیر به دست آورد:</p>
-                        <div class="formula-box">
-                            احتمال پیشامد = تعداد حالت‌های مطلوب ÷ تعداد حالت‌های ممکن
-                        </div>
-                        <div class="example-box">
-                            در پرتاب یک تاس سالم، احتمال آمدن عدد ۴ برابر است با:<br>
-                            ۱/۶
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۴. بررسی حالت‌های ممکن</h4>
-                        <p>برای حل مسائل احتمال، ابتدا باید همهٔ حالت‌های ممکن را به‌درستی پیدا کنیم. می‌توان از جدول، نمودار درختی یا فهرست منظم استفاده کرد.</p>
-                        <div class="example-box">
-                            اگر یک سکه و یک تاس را هم‌زمان در نظر بگیریم، می‌توان حالت‌ها را به صورت منظم در جدول یا نمودار درختی نمایش داد.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>قبل از محاسبهٔ احتمال، همهٔ حالت‌های ممکن را با دقت مشخص کنید.</li>
-                            <li>احتمال یک پیشامد غیرممکن صفر است.</li>
-                            <li>احتمال یک پیشامد قطعی یک است.</li>
-                            <li>در محاسبهٔ میانگین، تعداد داده‌ها باید درست شمرده شود.</li>
-                            <li>برای نمایش داده‌ها، نموداری را انتخاب کنید که با نوع داده سازگار باشد.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- فصل ۹ -->
-                <div class="lesson-content" id="lesson-circle" style="display:none;">
-                    <h3><i class="fas fa-circle"></i> فصل نهم: دایره</h3>
-                    <button onclick="hideLesson()" class="btn-secondary" style="float:left;margin-bottom:15px;">
-                        <i class="fas fa-arrow-right"></i> بازگشت
-                    </button>
-                    <div style="clear:both;"></div>
-
-                    <div class="lesson-section">
-                        <h4>۱. خط و دایره</h4>
-                        <p>دایره مجموعهٔ نقاطی از صفحه است که فاصلهٔ آن‌ها از یک نقطهٔ ثابت به نام <strong>مرکز</strong> برابر است.</p>
-                        <p>فاصلهٔ مرکز تا هر نقطه از دایره <strong>شعاع</strong> نام دارد.</p>
-                        <p>پاره‌خطی که از مرکز عبور کند و دو نقطهٔ دایره را به هم وصل کند، <strong>قطر</strong> است.</p>
-                        <div class="formula-box">
-                            قطر = ۲ × شعاع
-                        </div>
-                        <p>خط نسبت به دایره می‌تواند دو نقطهٔ مشترک، یک نقطهٔ مشترک یا هیچ نقطهٔ مشترکی داشته باشد.</p>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۲. زاویه‌های مرکزی</h4>
-                        <p>زاویه‌ای که رأس آن مرکز دایره باشد، <strong>زاویهٔ مرکزی</strong> نام دارد.</p>
-                        <p>اندازهٔ زاویهٔ مرکزی با اندازهٔ قوس روبه‌روی آن ارتباط مستقیم دارد.</p>
-                        <div class="example-box">
-                            اگر یک زاویهٔ مرکزی ۹۰ درجه باشد، قوس روبه‌روی آن یک‌چهارم دایره است.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>۳. زاویه‌های محاطی</h4>
-                        <p>اگر رأس زاویه روی دایره باشد و ضلع‌های آن دو وتر دایره باشند، زاویه را <strong>زاویهٔ محاطی</strong> می‌نامیم.</p>
-                        <div class="formula-box">
-                            اندازهٔ زاویهٔ محاطی = نصف اندازهٔ قوس روبه‌رو
-                        </div>
-                        <p>در نتیجه، اگر دو زاویهٔ محاطی یک قوس یکسان را ببینند، اندازهٔ آن دو زاویه برابر است.</p>
-                        <div class="example-box">
-                            اگر زاویهٔ مرکزی یک قوس ۱۲۰ درجه باشد، زاویهٔ محاطی روبه‌روی همان قوس ۶۰ درجه است.
-                        </div>
-                    </div>
-
-                    <div class="lesson-section">
-                        <h4>⭐ نکات مهم</h4>
-                        <ul>
-                            <li>شعاع از مرکز به یک نقطه روی دایره وصل می‌شود.</li>
-                            <li>قطر، وترِ دایره‌ای است که از مرکز عبور می‌کند.</li>
-                            <li>اندازهٔ زاویهٔ مرکزی دو برابر زاویهٔ محاطی روبه‌روی همان قوس است.</li>
-                            <li>زاویهٔ محاطی روبه‌روی قطر، قائمه و برابر ۹۰ درجه است.</li>
-                            <li>زاویه‌های محاطی که یک قوس یکسان را می‌بینند، برابرند.</li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
-</div>
         
         <!-- تب 11: فیلم های آموزشی -->
         <div class="tab-content" id="tab-videos">
